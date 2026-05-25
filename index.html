@@ -1,0 +1,2500 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AutoNexus — El Futuro de la Compra de Autos</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue-deep: #0A1628;
+    --blue-mid: #0D2147;
+    --blue-bright: #1456B0;
+    --blue-accent: #2563EB;
+    --blue-light: #60A5FA;
+    --blue-pale: #DBEAFE;
+    --gold: #D4A017;
+    --gold-light: #F0C040;
+    --gold-pale: #FEF3C7;
+    --gold-dark: #92700A;
+    --white: #FFFFFF;
+    --gray-50: #F8FAFC;
+    --gray-100: #F1F5F9;
+    --gray-200: #E2E8F0;
+    --gray-400: #94A3B8;
+    --gray-600: #475569;
+    --gray-800: #1E293B;
+    --success: #10B981;
+    --danger: #EF4444;
+    --shadow-gold: 0 0 20px rgba(212,160,23,0.3);
+    --shadow-blue: 0 0 20px rgba(37,99,235,0.25);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Rajdhani', sans-serif;
+    background: var(--white);
+    color: var(--gray-800);
+    overflow-x: hidden;
+  }
+
+  /* ---- SCROLLBAR ---- */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--gray-100); }
+  ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+
+  /* ---- HEADER ---- */
+  header {
+    position: fixed; top: 0; width: 100%; z-index: 1000;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--gold);
+    box-shadow: 0 2px 30px rgba(212,160,23,0.15);
+  }
+
+  .header-inner {
+    max-width: 1400px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2rem; height: 70px;
+  }
+
+  .logo {
+    display: flex; align-items: center; gap: 12px;
+    font-family: 'Orbitron', monospace; font-weight: 900;
+    font-size: 1.4rem; color: var(--blue-deep); text-decoration: none;
+  }
+
+  .logo-icon {
+    width: 38px; height: 38px;
+    background: linear-gradient(135deg, var(--blue-accent), var(--blue-bright));
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--gold);
+    position: relative; overflow: hidden;
+  }
+
+  .logo-icon::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, transparent 30%, rgba(212,160,23,0.4));
+  }
+
+  .logo-icon svg { width: 22px; height: 22px; fill: white; position: relative; z-index:1; }
+
+  .logo span { color: var(--gold); }
+
+  nav { display: flex; gap: 0; }
+
+  nav a {
+    font-family: 'Rajdhani', sans-serif; font-weight: 600;
+    font-size: 0.9rem; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--gray-600); text-decoration: none;
+    padding: 8px 16px; border-radius: 6px;
+    transition: all 0.2s; position: relative;
+  }
+
+  nav a:hover { color: var(--blue-accent); background: var(--blue-pale); }
+  nav a.active { color: var(--blue-accent); }
+
+  .header-actions { display: flex; gap: 10px; align-items: center; }
+
+  .btn {
+    font-family: 'Rajdhani', sans-serif; font-weight: 600;
+    font-size: 0.88rem; letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 9px 20px; border-radius: 6px; border: none; cursor: pointer;
+    transition: all 0.2s; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+  }
+
+  .btn-outline {
+    background: transparent; border: 1.5px solid var(--blue-accent);
+    color: var(--blue-accent);
+  }
+  .btn-outline:hover { background: var(--blue-pale); }
+
+  .btn-gold {
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: var(--blue-deep); border: 1px solid var(--gold-dark);
+    box-shadow: 0 2px 10px rgba(212,160,23,0.4);
+  }
+  .btn-gold:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(212,160,23,0.5); }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--blue-accent), var(--blue-bright));
+    color: white; border: 1px solid var(--blue-light);
+    box-shadow: 0 2px 10px rgba(37,99,235,0.35);
+  }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(37,99,235,0.45); }
+
+  /* ---- HERO ---- */
+  .hero {
+    min-height: 100vh; padding: 70px 0 0;
+    background: var(--white);
+    position: relative; overflow: hidden;
+  }
+
+  .hero-geo {
+    position: absolute; inset: 0; pointer-events: none;
+    overflow: hidden;
+  }
+
+  .hero-geo::before {
+    content: ''; position: absolute;
+    top: -200px; right: -200px;
+    width: 700px; height: 700px;
+    border: 1px solid rgba(37,99,235,0.08);
+    border-radius: 50%;
+    box-shadow: inset 0 0 200px rgba(37,99,235,0.04);
+  }
+
+  .hero-geo::after {
+    content: ''; position: absolute;
+    bottom: -300px; left: -300px;
+    width: 900px; height: 900px;
+    border: 1px solid rgba(212,160,23,0.06);
+    border-radius: 50%;
+  }
+
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(37,99,235,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(37,99,235,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse at 60% 40%, black 0%, transparent 70%);
+  }
+
+  .hero-inner {
+    max-width: 1400px; margin: 0 auto; padding: 5rem 2rem 3rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+    min-height: calc(100vh - 70px);
+    position: relative; z-index: 1;
+  }
+
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--gold-pale); border: 1px solid var(--gold);
+    color: var(--gold-dark); padding: 6px 14px; border-radius: 20px;
+    font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-tag::before { content: ''; width: 6px; height: 6px; background: var(--gold); border-radius: 50%; }
+
+  h1 {
+    font-family: 'Orbitron', monospace; font-weight: 900;
+    font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1.1;
+    color: var(--blue-deep); margin-bottom: 1.5rem;
+  }
+
+  h1 .accent { color: var(--gold); }
+
+  .hero-sub {
+    font-size: 1.15rem; color: var(--gray-600); line-height: 1.7;
+    margin-bottom: 2rem; max-width: 500px;
+  }
+
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 3rem; }
+
+  .hero-stats {
+    display: flex; gap: 2rem;
+    padding-top: 1.5rem; border-top: 1px solid var(--gray-200);
+  }
+
+  .stat-item { display: flex; flex-direction: column; gap: 2px; }
+
+  .stat-num {
+    font-family: 'Orbitron', monospace; font-weight: 700;
+    font-size: 1.5rem; color: var(--blue-accent);
+  }
+
+  .stat-num span { color: var(--gold); font-size: 1rem; }
+  .stat-label { font-size: 0.8rem; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.08em; }
+
+  /* Hero Visual */
+  .hero-visual {
+    position: relative; display: flex; justify-content: center; align-items: center;
+  }
+
+  .car-showcase {
+    width: 100%; max-width: 560px;
+    background: linear-gradient(145deg, var(--gray-50), white);
+    border: 1px solid var(--gray-200);
+    border-radius: 20px; padding: 2rem;
+    position: relative; overflow: hidden;
+    box-shadow: 0 20px 60px rgba(37,99,235,0.08), 0 0 0 1px rgba(212,160,23,0.15);
+  }
+
+  .car-showcase::before {
+    content: ''; position: absolute;
+    top: -1px; left: 20px; right: 20px; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .car-badge-row {
+    display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem;
+  }
+
+  .car-badge {
+    font-family: 'Orbitron', monospace; font-size: 0.7rem; font-weight: 700;
+    letter-spacing: 0.12em; padding: 4px 10px; border-radius: 4px;
+  }
+
+  .badge-nuevo { background: var(--blue-pale); color: var(--blue-accent); border: 1px solid rgba(37,99,235,0.3); }
+  .badge-usado { background: var(--gold-pale); color: var(--gold-dark); border: 1px solid rgba(212,160,23,0.4); }
+  .badge-hot { background: #FEF2F2; color: #DC2626; border: 1px solid rgba(220,38,38,0.3); }
+
+  .car-img-wrapper {
+    width: 100%; height: 200px;
+    background: linear-gradient(135deg, #EFF6FF, #DBEAFE);
+    border-radius: 12px; border: 1px solid var(--gray-200);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.2rem; position: relative; overflow: hidden;
+  }
+
+  .car-img-wrapper svg { width: 220px; opacity: 0.9; }
+
+  .ai-badge {
+    position: absolute; top: 10px; right: 10px;
+    background: rgba(37,99,235,0.9); color: white;
+    font-size: 0.65rem; font-weight: 600; letter-spacing: 0.08em;
+    padding: 3px 8px; border-radius: 4px; text-transform: uppercase;
+    border: 1px solid rgba(255,255,255,0.3);
+  }
+
+  .car-info h3 {
+    font-family: 'Orbitron', monospace; font-weight: 700;
+    font-size: 1.1rem; color: var(--blue-deep); margin-bottom: 4px;
+  }
+
+  .car-meta { font-size: 0.85rem; color: var(--gray-400); margin-bottom: 0.8rem; }
+
+  .car-price-row {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    padding-top: 0.8rem; border-top: 1px solid var(--gray-200);
+  }
+
+  .car-price {
+    font-family: 'Orbitron', monospace; font-weight: 700;
+    font-size: 1.4rem; color: var(--blue-deep);
+  }
+
+  .car-price small {
+    font-size: 0.75rem; color: var(--gold-dark); font-family: 'Rajdhani', sans-serif;
+    display: block; font-weight: 600; text-transform: uppercase;
+  }
+
+  .score-ring {
+    width: 56px; height: 56px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    border: 2px solid var(--gold); border-radius: 50%;
+    background: var(--gold-pale);
+  }
+
+  .score-num { font-family: 'Orbitron', monospace; font-weight: 700; font-size: 1rem; color: var(--gold-dark); }
+  .score-label { font-size: 0.55rem; color: var(--gold-dark); text-transform: uppercase; letter-spacing: 0.05em; }
+
+  /* ---- SEARCH SECTION ---- */
+  .search-section {
+    background: var(--gray-50); padding: 3rem 2rem;
+    border-top: 1px solid var(--gray-200); border-bottom: 1px solid var(--gray-200);
+  }
+
+  .search-inner { max-width: 1400px; margin: 0 auto; }
+
+  .search-header { text-align: center; margin-bottom: 2rem; }
+
+  .search-header h2 {
+    font-family: 'Orbitron', monospace; font-weight: 700;
+    font-size: 1.3rem; color: var(--blue-deep); margin-bottom: 6px;
+  }
+
+  .search-bar {
+    display: grid; grid-template-columns: 1fr 1fr 1fr 1fr auto;
+    gap: 12px; align-items: end;
+    background: white; padding: 1.5rem;
+    border-radius: 14px; border: 1px solid var(--gray-200);
+    box-shadow: 0 4px 24px rgba(37,99,235,0.07);
+  }
+
+  .search-field { display: flex; flex-direction: column; gap: 6px; }
+
+  .search-field label {
+    font-size: 0.72rem; font-weight: 600; color: var(--gray-400);
+    text-transform: uppercase; letter-spacing: 0.1em;
+  }
+
+  .search-field select,
+  .search-field input {
+    padding: 10px 14px; border-radius: 8px;
+    border: 1.5px solid var(--gray-200); background: var(--gray-50);
+    font-family: 'Rajdhani', sans-serif; font-weight: 500; font-size: 0.95rem;
+    color: var(--gray-800); outline: none; transition: border-color 0.2s;
+    appearance: none;
+  }
+
+  .search-field select:focus, .search-field input:focus { border-color: var(--blue-accent); background: white; }
+
+  .filter-tags {
+    display: flex; gap: 8px; flex-wrap: wrap; margin-top: 1rem;
+    align-items: center;
+  }
+
+  .filter-tag {
+    font-size: 0.8rem; font-weight: 600; padding: 5px 12px; border-radius: 20px;
+    cursor: pointer; transition: all 0.2s; border: 1.5px solid;
+    font-family: 'Rajdhani', sans-serif; letter-spacing: 0.04em;
+  }
+
+  .filter-tag.blue { color: var(--blue-accent); border-color: rgba(37,99,235,0.3); background: var(--blue-pale); }
+  .filter-tag.gold { color: var(--gold-dark); border-color: rgba(212,160,23,0.4); background: var(--gold-pale); }
+  .filter-tag:hover { transform: translateY(-1px); }
+
+  /* ---- SECTION HEADERS ---- */
+  .section { padding: 5rem 2rem; }
+  .section-inner { max-width: 1400px; margin: 0 auto; }
+
+  .section-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 2.5rem; padding-bottom: 1rem;
+    border-bottom: 1px solid var(--gray-200);
+  }
+
+  .section-title {
+    font-family: 'Orbitron', monospace; font-weight: 700;
+    font-size: 1.5rem; color: var(--blue-deep);
+  }
+
+  .section-title span { color: var(--gold); }
+
+  .section-sub { font-size: 0.9rem; color: var(--gray-400); margin-top: 4px; }
+
+  /* ---- CAR GRID ---- */
+  .car-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .car-card {
+    background: white; border-radius: 16px;
+    border: 1px solid var(--gray-200);
+    overflow: hidden; transition: all 0.3s;
+    cursor: pointer; position: relative;
+  }
+
+  .car-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(37,99,235,0.12), 0 0 0 1px rgba(212,160,23,0.2);
+    border-color: rgba(212,160,23,0.4);
+  }
+
+  .card-img {
+    height: 180px;
+    background: linear-gradient(135deg, #EFF6FF, #DBEAFE);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+
+  .card-img svg { width: 160px; opacity: 0.85; }
+
+  .card-img-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, transparent 50%, rgba(37,99,235,0.06));
+  }
+
+  .card-badges {
+    position: absolute; top: 10px; left: 10px;
+    display: flex; gap: 6px;
+  }
+
+  .fav-btn {
+    position: absolute; top: 10px; right: 10px;
+    width: 32px; height: 32px; border-radius: 50%;
+    background: white; border: 1px solid var(--gray-200);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: all 0.2s; color: var(--gray-400);
+    font-size: 0.9rem;
+  }
+
+  .fav-btn:hover { color: var(--danger); border-color: rgba(239,68,68,0.4); }
+  .fav-btn.active { color: var(--danger); background: #FEF2F2; border-color: rgba(239,68,68,0.4); }
+
+  .card-body { padding: 1.2rem; }
+
+  .card-make {
+    font-size: 0.72rem; color: var(--gray-400); text-transform: uppercase;
+    letter-spacing: 0.1em; font-weight: 600; margin-bottom: 2px;
+  }
+
+  .card-name {
+    font-family: 'Orbitron', monospace; font-weight: 700;
+    font-size: 1rem; color: var(--blue-deep); margin-bottom: 8px;
+  }
+
+  .card-specs {
+    display: flex; gap: 12px; margin-bottom: 1rem;
+    font-size: 0.8rem; color: var(--gray-400); font-weight: 500;
+  }
+
+  .card-spec { display: flex; align-items: center; gap: 4px; }
+
+  .spec-icon { font-size: 0.9rem; }
+
+  .card-metrics {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px; margin-bottom: 1rem;
+  }
+
+  .metric {
+    background: var(--gray-50); border-radius: 8px; padding: 8px;
+    text-align: center; border: 1px solid var(--gray-200);
+  }
+
+  .metric-val {
+    font-family: 'Orbitron', monospace; font-weight: 700;
+    font-size: 0.85rem; color: var(--blue-accent); display: block;
+  }
+
+  .metric-key { font-size: 0.65rem; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.06em; }
+
+  .card-bottom {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 1rem; border-top: 1px solid var(--gray-200);
+  }
+
+  .card-price { font-family: 'Orbitron', monospace; font-weight: 700; font-size: 1.2rem; color: var(--blue-deep); }
+  .card-monthly { font-size: 0.75rem; color: var(--gold-dark); font-weight: 600; text-transform: uppercase; }
+
+  .nexus-score {
+    font-family: 'Orbitron', monospace; font-weight: 700; font-size: 0.75rem;
+    padding: 4px 10px; border-radius: 20px; border: 1.5px solid;
+  }
+
+  .score-a { color: var(--success); border-color: rgba(16,185,129,0.4); background: #ECFDF5; }
+  .score-b { color: var(--blue-accent); border-color: rgba(37,99,235,0.3); background: var(--blue-pale); }
+  .score-c { color: var(--gold-dark); border-color: rgba(212,160,23,0.4); background: var(--gold-pale); }
+
+  /* ---- COMPARADOR ---- */
+  .comparador-section {
+    background: linear-gradient(135deg, var(--blue-deep), var(--blue-mid));
+    padding: 5rem 2rem; position: relative; overflow: hidden;
+  }
+
+  .comparador-section::before {
+    content: ''; position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .comparador-inner { max-width: 1400px; margin: 0 auto; position: relative; z-index: 1; }
+
+  .comparador-inner .section-title { color: white; }
+  .comparador-inner .section-title span { color: var(--gold); }
+  .comparador-inner .section-sub { color: rgba(255,255,255,0.5); }
+  .comparador-inner .section-header { border-color: rgba(255,255,255,0.1); }
+
+  .compare-table {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px; overflow: hidden;
+    backdrop-filter: blur(10px);
+  }
+
+  .compare-header-row {
+    display: grid; grid-template-columns: 200px 1fr 1fr 1fr;
+    background: rgba(255,255,255,0.08);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .compare-col-header {
+    padding: 1.2rem 1rem; text-align: center;
+    border-right: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .compare-col-header:last-child { border-right: none; }
+  .compare-col-header:first-child { text-align: left; }
+
+  .compare-car-name {
+    font-family: 'Orbitron', monospace; font-weight: 700;
+    font-size: 0.85rem; color: white; display: block; margin-bottom: 2px;
+  }
+
+  .compare-car-sub { font-size: 0.75rem; color: rgba(255,255,255,0.5); }
+
+  .compare-row {
+    display: grid; grid-template-columns: 200px 1fr 1fr 1fr;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    transition: background 0.2s;
+  }
+
+  .compare-row:hover { background: rgba(255,255,255,0.04); }
+  .compare-row:last-child { border-bottom: none; }
+
+  .compare-cell {
+    padding: 1rem; text-align: center;
+    border-right: 1px solid rgba(255,255,255,0.06);
+    font-family: 'Rajdhani', sans-serif; font-weight: 600;
+    font-size: 0.95rem; color: white;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .compare-cell:last-child { border-right: none; }
+
+  .compare-cell:first-child {
+    justify-content: flex-start; color: rgba(255,255,255,0.6);
+    font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 500;
+  }
+
+  .compare-cell.best { color: var(--gold-light); font-weight: 700; }
+  .compare-cell.good { color: #86EFAC; }
+  .compare-cell.ok { color: rgba(255,255,255,0.7); }
+
+  .win-badge {
+    font-size: 0.65rem; padding: 2px 6px; border-radius: 4px;
+    background: rgba(212,160,23,0.3); color: var(--gold-light);
+    margin-left: 6px; font-weight: 700; text-transform: uppercase;
+  }
+
+  /* ---- TASAS SECTION ---- */
+  .tasas-section { background: var(--gray-50); padding: 5rem 2rem; }
+  .tasas-inner { max-width: 1400px; margin: 0 auto; }
+
+  .tasas-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
+
+  .tasa-card {
+    background: white; border-radius: 14px; padding: 1.5rem;
+    border: 1px solid var(--gray-200); position: relative; overflow: hidden;
+    transition: all 0.3s;
+  }
+
+  .tasa-card:hover {
+    box-shadow: 0 8px 32px rgba(37,99,235,0.1);
+    border-color: rgba(37,99,235,0.3); transform: translateY(-2px);
+  }
+
+  .tasa-card.featured {
+    border-color: var(--gold); box-shadow: var(--shadow-gold);
+  }
+
+  .tasa-card.featured::before {
+    content: 'MEJOR TASA'; position: absolute; top: 12px; right: -20px;
+    background: var(--gold); color: var(--blue-deep);
+    font-size: 0.6rem; font-weight: 700; letter-spacing: 0.12em; padding: 3px 28px;
+    transform: rotate(45deg); font-family: 'Orbitron', monospace;
+  }
+
+  .bank-logo {
+    width: 40px; height: 40px; border-radius: 8px;
+    background: var(--blue-deep); color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Orbitron', monospace; font-weight: 700; font-size: 0.6rem;
+    margin-bottom: 1rem; letter-spacing: 0.05em;
+  }
+
+  .bank-name { font-weight: 600; font-size: 0.9rem; color: var(--gray-800); margin-bottom: 4px; }
+  .bank-type { font-size: 0.75rem; color: var(--gray-400); margin-bottom: 1rem; }
+
+  .tasa-num {
+    font-family: 'Orbitron', monospace; font-weight: 900;
+    font-size: 2rem; color: var(--blue-accent); line-height: 1;
+  }
+
+  .tasa-label { font-size: 0.72rem; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 4px; }
+
+  .tasa-details {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 1rem;
+    padding-top: 1rem; border-top: 1px solid var(--gray-200);
+  }
+
+  .tasa-detail { font-size: 0.78rem; color: var(--gray-600); }
+  .tasa-detail strong { display: block; color: var(--gray-800); font-weight: 600; }
+
+  /* ---- UPLOAD SECTION ---- */
+  .upload-section { padding: 5rem 2rem; background: white; }
+  .upload-inner { max-width: 1400px; margin: 0 auto; }
+
+  .upload-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+
+  .upload-form {
+    background: white; border: 1.5px solid var(--gray-200); border-radius: 20px; padding: 2.5rem;
+    box-shadow: 0 8px 40px rgba(37,99,235,0.06);
+    position: relative; overflow: hidden;
+  }
+
+  .upload-form::before {
+    content: ''; position: absolute;
+    top: -1px; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--blue-accent), var(--gold));
+  }
+
+  .form-title {
+    font-family: 'Orbitron', monospace; font-weight: 700;
+    font-size: 1.15rem; color: var(--blue-deep); margin-bottom: 0.4rem;
+  }
+
+  .form-subtitle { font-size: 0.88rem; color: var(--gray-400); margin-bottom: 2rem; }
+
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+  .form-grid.full { grid-template-columns: 1fr; }
+
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+
+  .form-group label {
+    font-size: 0.75rem; font-weight: 600; color: var(--gray-600);
+    text-transform: uppercase; letter-spacing: 0.08em;
+  }
+
+  .form-group input, .form-group select, .form-group textarea {
+    padding: 10px 14px; border-radius: 8px;
+    border: 1.5px solid var(--gray-200); background: var(--gray-50);
+    font-family: 'Rajdhani', sans-serif; font-weight: 500; font-size: 0.95rem;
+    color: var(--gray-800); outline: none; transition: border-color 0.2s;
+    appearance: none; resize: vertical;
+  }
+
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    border-color: var(--blue-accent); background: white;
+  }
+
+  .upload-zone {
+    border: 2px dashed var(--gray-200); border-radius: 12px;
+    padding: 2rem; text-align: center; cursor: pointer;
+    transition: all 0.2s; margin-bottom: 1rem;
+    background: var(--gray-50);
+  }
+
+  .upload-zone:hover {
+    border-color: var(--blue-accent); background: var(--blue-pale);
+  }
+
+  .upload-icon { font-size: 2rem; margin-bottom: 8px; color: var(--blue-accent); }
+  .upload-text { font-size: 0.88rem; color: var(--gray-600); margin-bottom: 4px; }
+  .upload-hint { font-size: 0.75rem; color: var(--gray-400); }
+
+  .features-list { display: flex; flex-direction: column; gap: 1rem; }
+
+  .feature-item {
+    display: flex; gap: 1rem; align-items: flex-start;
+    padding: 1.2rem; border-radius: 12px;
+    border: 1px solid var(--gray-200); background: var(--gray-50);
+    transition: all 0.2s;
+  }
+
+  .feature-item:hover { border-color: rgba(37,99,235,0.3); background: var(--blue-pale); }
+
+  .feature-icon {
+    width: 44px; height: 44px; flex-shrink: 0;
+    background: linear-gradient(135deg, var(--blue-accent), var(--blue-bright));
+    border-radius: 10px; display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; color: white;
+  }
+
+  .feature-icon.gold {
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: var(--blue-deep);
+  }
+
+  .feature-title { font-weight: 700; font-size: 0.95rem; color: var(--blue-deep); margin-bottom: 4px; }
+  .feature-desc { font-size: 0.82rem; color: var(--gray-600); line-height: 1.5; }
+
+  /* ---- AI ASSISTANT ---- */
+  .ai-section {
+    background: linear-gradient(135deg, var(--blue-deep), var(--blue-mid));
+    padding: 5rem 2rem; position: relative; overflow: hidden;
+  }
+
+  .ai-section::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(212,160,23,0.08) 0%, transparent 60%);
+  }
+
+  .ai-inner { max-width: 1000px; margin: 0 auto; text-align: center; position: relative; z-index: 1; }
+
+  .ai-orb {
+    width: 100px; height: 100px; margin: 0 auto 2rem;
+    border-radius: 50%;
+    border: 2px solid rgba(212,160,23,0.5);
+    background: radial-gradient(circle at 30% 30%, rgba(37,99,235,0.8), rgba(10,22,40,0.9));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2.5rem; position: relative;
+    box-shadow: 0 0 40px rgba(212,160,23,0.25), inset 0 0 40px rgba(37,99,235,0.3);
+    animation: orbPulse 3s ease-in-out infinite;
+  }
+
+  @keyframes orbPulse {
+    0%, 100% { box-shadow: 0 0 40px rgba(212,160,23,0.25), inset 0 0 40px rgba(37,99,235,0.3); }
+    50% { box-shadow: 0 0 60px rgba(212,160,23,0.4), inset 0 0 60px rgba(37,99,235,0.5); }
+  }
+
+  .ai-title {
+    font-family: 'Orbitron', monospace; font-weight: 700;
+    font-size: 1.8rem; color: white; margin-bottom: 1rem;
+  }
+
+  .ai-title span { color: var(--gold-light); }
+
+  .ai-desc { font-size: 1rem; color: rgba(255,255,255,0.6); margin-bottom: 2.5rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+
+  .ai-chips {
+    display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-bottom: 2rem;
+  }
+
+  .ai-chip {
+    padding: 8px 16px; border-radius: 20px; cursor: pointer;
+    border: 1px solid rgba(212,160,23,0.4); background: rgba(212,160,23,0.1);
+    color: var(--gold-light); font-size: 0.83rem; font-weight: 500;
+    transition: all 0.2s; font-family: 'Rajdhani', sans-serif;
+  }
+
+  .ai-chip:hover { background: rgba(212,160,23,0.25); border-color: var(--gold); transform: translateY(-1px); }
+
+  .ai-input-row {
+    display: flex; gap: 10px;
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 12px; padding: 8px 8px 8px 16px;
+    backdrop-filter: blur(10px);
+  }
+
+  .ai-input {
+    flex: 1; background: transparent; border: none; outline: none;
+    color: white; font-family: 'Rajdhani', sans-serif; font-size: 1rem; font-weight: 400;
+  }
+
+  .ai-input::placeholder { color: rgba(255,255,255,0.3); }
+
+  /* ---- NEXUS SCORE EXPLAINER ---- */
+  .nexus-section { padding: 5rem 2rem; background: var(--gray-50); }
+  .nexus-inner { max-width: 1400px; margin: 0 auto; }
+
+  .nexus-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 3rem; align-items: center; }
+
+  .nexus-score-big {
+    background: linear-gradient(135deg, var(--blue-deep), var(--blue-mid));
+    border-radius: 20px; padding: 3rem 2rem; text-align: center;
+    border: 1px solid rgba(212,160,23,0.3); position: relative; overflow: hidden;
+    box-shadow: var(--shadow-gold);
+  }
+
+  .nexus-score-big::before {
+    content: ''; position: absolute;
+    top: -1px; left: 20px; right: 20px; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .big-score-label {
+    font-family: 'Orbitron', monospace; font-size: 0.65rem;
+    letter-spacing: 0.15em; color: rgba(255,255,255,0.5); margin-bottom: 0.5rem;
+    text-transform: uppercase;
+  }
+
+  .big-score-num {
+    font-family: 'Orbitron', monospace; font-weight: 900;
+    font-size: 5rem; color: var(--gold-light); line-height: 1;
+  }
+
+  .big-score-sub { font-size: 0.88rem; color: rgba(255,255,255,0.6); margin-top: 0.5rem; margin-bottom: 1.5rem; }
+
+  .score-bars { display: flex; flex-direction: column; gap: 12px; }
+
+  .score-bar-item { text-align: left; }
+
+  .score-bar-label {
+    display: flex; justify-content: space-between;
+    font-size: 0.72rem; color: rgba(255,255,255,0.7); margin-bottom: 4px;
+    font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
+  }
+
+  .score-bar-track {
+    height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden;
+  }
+
+  .score-bar-fill {
+    height: 100%; border-radius: 2px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    transition: width 1s ease;
+  }
+
+  .nexus-criteria { display: flex; flex-direction: column; gap: 1rem; }
+
+  .criterion {
+    display: flex; gap: 1rem; align-items: flex-start;
+    padding: 1.2rem; border-radius: 12px; background: white;
+    border: 1px solid var(--gray-200); transition: all 0.2s;
+  }
+
+  .criterion:hover { border-color: rgba(212,160,23,0.4); box-shadow: var(--shadow-gold); }
+
+  .criterion-icon {
+    width: 40px; height: 40px; flex-shrink: 0;
+    border-radius: 10px; display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+  }
+
+  .criterion-title { font-weight: 700; color: var(--blue-deep); margin-bottom: 3px; }
+  .criterion-desc { font-size: 0.8rem; color: var(--gray-500); line-height: 1.5; }
+  .criterion-weight {
+    margin-left: auto; font-family: 'Orbitron', monospace; font-weight: 700;
+    font-size: 0.85rem; color: var(--gold-dark); white-space: nowrap;
+  }
+
+  /* ---- FOOTER ---- */
+  footer {
+    background: var(--blue-deep); padding: 4rem 2rem 2rem; color: white;
+  }
+
+  .footer-inner { max-width: 1400px; margin: 0 auto; }
+
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+
+  .footer-brand .logo { margin-bottom: 1rem; }
+  .footer-brand p { font-size: 0.85rem; color: rgba(255,255,255,0.5); line-height: 1.6; max-width: 300px; }
+
+  .footer-col h4 {
+    font-family: 'Orbitron', monospace; font-size: 0.7rem; letter-spacing: 0.15em;
+    color: var(--gold); text-transform: uppercase; margin-bottom: 1rem;
+  }
+
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+
+  .footer-col ul li a {
+    font-size: 0.85rem; color: rgba(255,255,255,0.5); text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-col ul li a:hover { color: var(--gold-light); }
+
+  .footer-bottom {
+    padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1);
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.78rem; color: rgba(255,255,255,0.3);
+  }
+
+  .footer-bottom span { color: var(--gold); }
+
+  /* ---- MODAL ---- */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0; z-index: 2000;
+    background: rgba(10,22,40,0.85); backdrop-filter: blur(8px);
+    align-items: center; justify-content: center; padding: 2rem;
+  }
+
+  .modal-overlay.open { display: flex; }
+
+  .modal {
+    background: white; border-radius: 20px; padding: 2.5rem;
+    max-width: 700px; width: 100%; max-height: 90vh; overflow-y: auto;
+    position: relative; border: 1px solid var(--gray-200);
+    box-shadow: 0 40px 80px rgba(0,0,0,0.4), 0 0 0 1px rgba(212,160,23,0.2);
+    animation: modalIn 0.3s ease;
+  }
+
+  @keyframes modalIn {
+    from { transform: scale(0.95) translateY(10px); opacity: 0; }
+    to { transform: scale(1) translateY(0); opacity: 1; }
+  }
+
+  .modal::before {
+    content: ''; position: absolute;
+    top: -1px; left: 20px; right: 20px; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .modal-close {
+    position: absolute; top: 1.2rem; right: 1.2rem;
+    width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--gray-200);
+    background: var(--gray-50); cursor: pointer; display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; color: var(--gray-400); transition: all 0.2s;
+  }
+
+  .modal-close:hover { background: var(--gray-100); color: var(--gray-800); }
+
+  .modal-title {
+    font-family: 'Orbitron', monospace; font-weight: 700;
+    font-size: 1.2rem; color: var(--blue-deep); margin-bottom: 6px;
+  }
+
+  .modal-sub { font-size: 0.88rem; color: var(--gray-400); margin-bottom: 2rem; }
+
+  .car-detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+
+  .detail-box {
+    background: var(--gray-50); border-radius: 12px; padding: 1rem;
+    border: 1px solid var(--gray-200);
+  }
+
+  .detail-box-title {
+    font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--gray-400); font-weight: 600; margin-bottom: 4px;
+  }
+
+  .detail-box-val {
+    font-family: 'Orbitron', monospace; font-weight: 700;
+    font-size: 1.2rem; color: var(--blue-accent);
+  }
+
+  .modal-price-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.5rem; background: var(--blue-deep); border-radius: 12px;
+    margin-bottom: 1.5rem;
+  }
+
+  .modal-price {
+    font-family: 'Orbitron', monospace; font-weight: 900;
+    font-size: 1.8rem; color: white;
+  }
+
+  .modal-price small {
+    font-size: 0.8rem; color: var(--gold-light); display: block;
+    font-family: 'Rajdhani', sans-serif; font-weight: 600;
+  }
+
+  /* ---- NOTIFICATION ---- */
+  .notification {
+    position: fixed; bottom: 2rem; right: 2rem; z-index: 3000;
+    background: var(--blue-deep); color: white; padding: 1rem 1.5rem;
+    border-radius: 12px; border: 1px solid rgba(212,160,23,0.4);
+    font-size: 0.9rem; font-weight: 500; display: flex; align-items: center; gap: 10px;
+    transform: translateX(200%); transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3), 0 0 0 1px rgba(212,160,23,0.2);
+    max-width: 340px;
+  }
+
+  .notification.show { transform: translateX(0); }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; padding-top: 3rem; }
+    .upload-grid, .nexus-grid, .footer-grid { grid-template-columns: 1fr; }
+    .compare-header-row, .compare-row { grid-template-columns: 120px 1fr 1fr; }
+    .compare-header-row .compare-col-header:nth-child(4),
+    .compare-row .compare-cell:nth-child(4) { display: none; }
+    nav { display: none; }
+  }
+
+  /* ---- UTILS ---- */
+  .text-gold { color: var(--gold); }
+  .text-blue { color: var(--blue-accent); }
+  .pulse { animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.6} }
+
+  .floating-cta {
+    position: fixed; bottom: 2rem; left: 2rem; z-index: 999;
+    display: flex; gap: 10px; flex-direction: column;
+  }
+
+  .fcta-btn {
+    width: 52px; height: 52px; border-radius: 50%; border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem; transition: all 0.2s;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  }
+
+  .fcta-btn.blue { background: var(--blue-accent); color: white; }
+  .fcta-btn.gold { background: var(--gold); color: var(--blue-deep); }
+  .fcta-btn.blue:hover, .fcta-btn.gold:hover { transform: scale(1.1); }
+
+  .tag-live {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.72rem; font-weight: 600; color: var(--success);
+    letter-spacing: 0.08em; text-transform: uppercase;
+  }
+
+  .tag-live::before {
+    content: ''; width: 7px; height: 7px; border-radius: 50%;
+    background: var(--success); animation: pulse 1.5s infinite;
+  }
+
+  select option { font-family: sans-serif; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a class="logo" href="#">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/>
+        </svg>
+      </div>
+      Auto<span>Nexus</span>
+    </a>
+
+    <nav>
+      <a href="#" class="active" onclick="scrollTo(0,0);return false">Inicio</a>
+      <a href="#catalogo" onclick="scrollToSection('catalogo');return false">Catálogo</a>
+      <a href="#tasas" onclick="scrollToSection('tasas');return false">Financiamiento</a>
+      <a href="#comparador" onclick="scrollToSection('comparador');return false">Comparador</a>
+      <a href="#vender" onclick="scrollToSection('vender');return false">Vender</a>
+    </nav>
+
+    <div class="header-actions">
+      <div class="tag-live">En vivo</div>
+      <button class="btn btn-outline" onclick="openModal('aiconfig')" title="Configurar OpenAI API Key" style="padding:9px 14px">⚙️ IA Config</button>
+      <button class="btn btn-outline" onclick="openModal('login')">Ingresar</button>
+      <button class="btn btn-gold" onclick="scrollToSection('vender')">Publicar Auto ✦</button>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== VIDEO HERO + FILTROS ===================== -->
+<style>
+  /* VIDEO HERO */
+  .vhero {
+    position: relative; min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden; padding-top: 70px;
+  }
+
+  .vhero-video {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; z-index: 0;
+  }
+
+  .vhero-overlay {
+    position: absolute; inset: 0; z-index: 1;
+    background: linear-gradient(
+      160deg,
+      rgba(10,22,40,0.82) 0%,
+      rgba(13,33,71,0.75) 50%,
+      rgba(10,22,40,0.88) 100%
+    );
+  }
+
+  /* Animated scan line */
+  .vhero-scanline {
+    position: absolute; inset: 0; z-index: 2; pointer-events: none;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(37,99,235,0.03) 3px,
+      rgba(37,99,235,0.03) 4px
+    );
+  }
+
+  /* Gold corner accents */
+  .vhero-corner {
+    position: absolute; z-index: 3; width: 60px; height: 60px; pointer-events: none;
+  }
+  .vhero-corner.tl { top: 80px; left: 20px; border-top: 2px solid var(--gold); border-left: 2px solid var(--gold); }
+  .vhero-corner.tr { top: 80px; right: 20px; border-top: 2px solid var(--gold); border-right: 2px solid var(--gold); }
+  .vhero-corner.bl { bottom: 20px; left: 20px; border-bottom: 2px solid var(--gold); border-left: 2px solid var(--gold); }
+  .vhero-corner.br { bottom: 20px; right: 20px; border-bottom: 2px solid var(--gold); border-right: 2px solid var(--gold); }
+
+  .vhero-inner {
+    position: relative; z-index: 4;
+    width: 100%; max-width: 1200px; padding: 3rem 2rem;
+    display: flex; flex-direction: column; align-items: center;
+  }
+
+  /* Headline */
+  .vhero-headline {
+    text-align: center; margin-bottom: 2.5rem;
+  }
+
+  .vhero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(212,160,23,0.15); border: 1px solid rgba(212,160,23,0.5);
+    color: var(--gold-light); padding: 5px 14px; border-radius: 20px;
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+    margin-bottom: 1rem;
+    animation: fadeSlideDown 0.7s ease both;
+  }
+
+  .vhero-tag::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); animation: pulse 1.5s infinite; }
+
+  .vhero-headline h1 {
+    font-family: 'Orbitron', monospace; font-weight: 900;
+    font-size: clamp(2rem, 5vw, 3.8rem); color: white; line-height: 1.1;
+    text-shadow: 0 0 40px rgba(37,99,235,0.4);
+    animation: fadeSlideDown 0.7s 0.1s ease both;
+  }
+
+  .vhero-headline h1 span { color: var(--gold-light); }
+
+  .vhero-headline p {
+    font-size: 1rem; color: rgba(255,255,255,0.6); margin-top: 0.8rem;
+    animation: fadeSlideDown 0.7s 0.2s ease both;
+  }
+
+  @keyframes fadeSlideDown {
+    from { opacity: 0; transform: translateY(-16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ---- COCKPIT FILTER PANEL ---- */
+  .cockpit {
+    width: 100%; max-width: 1100px;
+    background: rgba(10,22,40,0.75);
+    border: 1px solid rgba(212,160,23,0.35);
+    border-radius: 20px;
+    backdrop-filter: blur(18px);
+    padding: 1.8rem 2rem 1.5rem;
+    box-shadow: 0 0 60px rgba(10,22,40,0.6), 0 0 0 1px rgba(37,99,235,0.2);
+    animation: fadeSlideDown 0.7s 0.3s ease both;
+    position: relative; overflow: hidden;
+  }
+
+  /* top gold line */
+  .cockpit::before {
+    content: ''; position: absolute;
+    top: 0; left: 10%; right: 10%; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .cockpit-title {
+    font-family: 'Orbitron', monospace; font-size: 0.65rem; font-weight: 700;
+    letter-spacing: 0.2em; color: rgba(212,160,23,0.7); text-transform: uppercase;
+    margin-bottom: 1.2rem; display: flex; align-items: center; gap: 10px;
+  }
+
+  .cockpit-title::after {
+    content: ''; flex: 1; height: 1px;
+    background: linear-gradient(90deg, rgba(212,160,23,0.3), transparent);
+  }
+
+  /* 8-filter grid */
+  .cockpit-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 1.2rem;
+  }
+
+  @media (max-width: 900px) {
+    .cockpit-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .cfilter {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px; padding: 12px 14px;
+    display: flex; flex-direction: column; gap: 6px;
+    transition: border-color 0.2s, background 0.2s;
+    cursor: pointer; position: relative;
+  }
+
+  .cfilter:hover, .cfilter:focus-within {
+    border-color: rgba(212,160,23,0.6);
+    background: rgba(212,160,23,0.07);
+  }
+
+  .cfilter.active {
+    border-color: var(--gold);
+    background: rgba(212,160,23,0.12);
+    box-shadow: 0 0 12px rgba(212,160,23,0.2);
+  }
+
+  .cfilter-label {
+    display: flex; align-items: center; gap: 7px;
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: rgba(255,255,255,0.45);
+  }
+
+  .cfilter-label .fi { font-size: 0.85rem; }
+
+  .cfilter-control {
+    background: transparent; border: none; outline: none;
+    color: white; font-family: 'Rajdhani', sans-serif;
+    font-weight: 600; font-size: 1rem; width: 100%;
+    cursor: pointer; appearance: none;
+  }
+
+  .cfilter-control option { background: #0D2147; color: white; }
+
+  .cfilter-control::placeholder { color: rgba(255,255,255,0.3); }
+
+  .cfilter-value {
+    font-family: 'Orbitron', monospace; font-size: 0.75rem;
+    color: var(--gold-light); font-weight: 700; min-height: 18px;
+    transition: opacity 0.2s;
+  }
+
+  /* range slider inside cockpit */
+  .cfilter input[type="range"] {
+    width: 100%; accent-color: var(--gold);
+    height: 3px; cursor: pointer;
+  }
+
+  /* Special action filters */
+  .cfilter.action-btn {
+    align-items: center; justify-content: center; text-align: center;
+    cursor: pointer; flex-direction: row; gap: 10px;
+  }
+
+  .cfilter.action-btn .action-icon {
+    font-size: 1.4rem; flex-shrink: 0;
+  }
+
+  .cfilter.action-btn .action-text {
+    font-family: 'Orbitron', monospace; font-size: 0.72rem; font-weight: 700;
+    color: white; line-height: 1.3;
+  }
+
+  .cfilter.action-btn .action-sub {
+    font-size: 0.65rem; color: rgba(255,255,255,0.4);
+    font-family: 'Rajdhani', sans-serif; font-weight: 400;
+  }
+
+  /* CTA row */
+  .cockpit-cta {
+    display: flex; gap: 10px; align-items: center;
+  }
+
+  .cockpit-search-btn {
+    flex: 1; padding: 13px 24px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: var(--blue-deep); border: none; border-radius: 10px;
+    font-family: 'Orbitron', monospace; font-weight: 700; font-size: 0.85rem;
+    letter-spacing: 0.08em; cursor: pointer;
+    transition: all 0.2s; text-transform: uppercase;
+    box-shadow: 0 4px 20px rgba(212,160,23,0.4);
+  }
+
+  .cockpit-search-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(212,160,23,0.55); }
+
+  .cockpit-reset {
+    padding: 13px 18px; background: transparent;
+    border: 1px solid rgba(255,255,255,0.2); border-radius: 10px;
+    color: rgba(255,255,255,0.5); font-family: 'Rajdhani', sans-serif;
+    font-size: 0.85rem; cursor: pointer; transition: all 0.2s;
+  }
+
+  .cockpit-reset:hover { border-color: rgba(255,255,255,0.5); color: white; }
+
+  /* active filters chips */
+  .active-filters {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    margin-top: 1rem; min-height: 28px;
+  }
+
+  .af-chip {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: rgba(212,160,23,0.2); border: 1px solid rgba(212,160,23,0.5);
+    color: var(--gold-light); padding: 3px 10px; border-radius: 20px;
+    font-size: 0.72rem; font-weight: 600;
+    animation: chipIn 0.25s ease;
+  }
+
+  @keyframes chipIn {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .af-chip button {
+    background: none; border: none; color: var(--gold-light);
+    cursor: pointer; font-size: 0.8rem; padding: 0; line-height: 1;
+  }
+
+  /* Quick search row below cockpit */
+  .vhero-quick {
+    display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;
+    margin-top: 1.5rem;
+    animation: fadeSlideDown 0.7s 0.5s ease both;
+  }
+
+  .vhero-quick span {
+    font-size: 0.72rem; color: rgba(255,255,255,0.35);
+    text-transform: uppercase; letter-spacing: 0.1em; align-self: center;
+  }
+
+  .qchip {
+    padding: 7px 14px; border-radius: 20px; cursor: pointer;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.05);
+    color: rgba(255,255,255,0.75); font-size: 0.8rem; font-weight: 500;
+    transition: all 0.2s; font-family: 'Rajdhani', sans-serif;
+    white-space: nowrap;
+  }
+
+  .qchip:hover {
+    border-color: var(--gold); color: var(--gold-light);
+    background: rgba(212,160,23,0.1);
+    transform: translateY(-2px);
+  }
+
+  /* Scroll hint */
+  .scroll-hint {
+    position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
+    z-index: 4; display: flex; flex-direction: column; align-items: center; gap: 6px;
+    color: rgba(255,255,255,0.35); font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase;
+    animation: bounce 2s ease-in-out infinite;
+  }
+
+  @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
+
+  .scroll-hint::before {
+    content: ''; width: 24px; height: 36px; border: 1.5px solid rgba(255,255,255,0.2);
+    border-radius: 12px; display: block; position: relative;
+  }
+
+  .scroll-hint::after {
+    content: ''; width: 4px; height: 8px; background: rgba(212,160,23,0.7);
+    border-radius: 2px; position: absolute; top: 6px; left: 50%; transform: translateX(-50%);
+    animation: scrollDot 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollDot { 0%,100%{top:6px;opacity:1} 50%{top:18px;opacity:0.3} }
+</style>
+
+<section class="vhero">
+  <!-- Video Background -->
+  <video class="vhero-video" autoplay muted loop playsinline poster="">
+    <source src="https://videos.pexels.com/video-files/3571264/3571264-uhd_2560_1440_30fps.mp4" type="video/mp4">
+    <!-- Fallback gradient if video blocked -->
+  </video>
+  <!-- Fallback background if video can't load -->
+  <div style="position:absolute;inset:0;z-index:0;background:linear-gradient(135deg,#050e1f 0%,#0a1628 40%,#0d2147 100%)"></div>
+
+  <div class="vhero-overlay"></div>
+  <div class="vhero-scanline"></div>
+
+  <!-- Gold corner decorations -->
+  <div class="vhero-corner tl"></div>
+  <div class="vhero-corner tr"></div>
+  <div class="vhero-corner bl"></div>
+  <div class="vhero-corner br"></div>
+
+  <div class="vhero-inner">
+    <!-- Headline -->
+    <div class="vhero-headline">
+      <div class="vhero-tag">✦ Plataforma de Nueva Generación</div>
+      <h1>Encuentra tu Auto<br><span>Perfecto</span> Ahora</h1>
+      <p>12,847 vehículos · 34 bancos comparados · NexusScore™ en cada auto</p>
+    </div>
+
+    <!-- COCKPIT FILTER PANEL -->
+    <div class="cockpit" id="cockpit">
+      <div class="cockpit-title">⚡ Motor de Búsqueda NexusAI</div>
+
+      <div class="cockpit-grid">
+
+        <!-- 1. MARCA -->
+        <div class="cfilter" id="cf-marca">
+          <div class="cfilter-label"><span class="fi">🏎</span> Marca</div>
+          <select class="cfilter-control" id="f-marca" onchange="cockpitChange('marca',this)">
+            <option value="">Todas las marcas</option>
+            <option>BMW</option>
+            <option>Mercedes-Benz</option>
+            <option>Audi</option>
+            <option>Toyota</option>
+            <option>Ford</option>
+            <option>Tesla</option>
+            <option>Chevrolet</option>
+            <option>Honda</option>
+          </select>
+          <div class="cfilter-value" id="cv-marca">—</div>
+        </div>
+
+        <!-- 2. PRECIO -->
+        <div class="cfilter" id="cf-precio">
+          <div class="cfilter-label"><span class="fi">💰</span> Precio máx.</div>
+          <input type="range" id="f-precio-range" min="5000" max="150000" step="5000" value="150000"
+            oninput="cockpitRange('precio', this.value)">
+          <div class="cfilter-value" id="cv-precio">Sin límite</div>
+        </div>
+
+        <!-- 3. BANCO -->
+        <div class="cfilter" id="cf-banco">
+          <div class="cfilter-label"><span class="fi">🏦</span> Banco</div>
+          <select class="cfilter-control" id="f-banco" onchange="cockpitChange('banco',this)">
+            <option value="">Todos los bancos</option>
+            <option>BankPlus</option>
+            <option>NexoBank</option>
+            <option>CrediAuto</option>
+            <option>BancoPrime</option>
+            <option>FinanzAuto</option>
+          </select>
+          <div class="cfilter-value" id="cv-banco">—</div>
+        </div>
+
+        <!-- 4. CUOTA MENSUAL -->
+        <div class="cfilter" id="cf-cuota">
+          <div class="cfilter-label"><span class="fi">📅</span> Cuota máx./mes</div>
+          <input type="range" id="f-cuota-range" min="100" max="2000" step="50" value="2000"
+            oninput="cockpitRange('cuota', this.value)">
+          <div class="cfilter-value" id="cv-cuota">Sin límite</div>
+        </div>
+
+        <!-- 5. SCORE VENDEDOR -->
+        <div class="cfilter" id="cf-score">
+          <div class="cfilter-label"><span class="fi">⭐</span> NexusScore mín.</div>
+          <input type="range" id="f-score-range" min="0" max="100" step="5" value="0"
+            oninput="cockpitRange('score', this.value)">
+          <div class="cfilter-value" id="cv-score">Cualquier score</div>
+        </div>
+
+        <!-- 6. COMPARADOR (acción especial) -->
+        <div class="cfilter action-btn" onclick="scrollToSection('comparador'); notify('⚡ Abriendo comparador avanzado…')" id="cf-comp">
+          <div class="action-icon">⚡</div>
+          <div>
+            <div class="action-text">Comparador</div>
+            <div class="action-sub">Hasta 3 autos lado a lado</div>
+          </div>
+        </div>
+
+        <!-- 7. CILINDRAJE -->
+        <div class="cfilter" id="cf-cilindros">
+          <div class="cfilter-label"><span class="fi">⚙️</span> Cilindraje</div>
+          <select class="cfilter-control" id="f-cilindros" onchange="cockpitChange('cilindros',this)">
+            <option value="">Cualquiera</option>
+            <option value="1000">Hasta 1,000 cc</option>
+            <option value="1600">Hasta 1,600 cc</option>
+            <option value="2000">Hasta 2,000 cc</option>
+            <option value="3000">Hasta 3,000 cc</option>
+            <option value="4000">Hasta 4,000 cc+</option>
+          </select>
+          <div class="cfilter-value" id="cv-cilindros">—</div>
+        </div>
+
+        <!-- 8. AÑO -->
+        <div class="cfilter" id="cf-anio">
+          <div class="cfilter-label"><span class="fi">📆</span> Año desde</div>
+          <select class="cfilter-control" id="f-anio" onchange="cockpitChange('anio',this)">
+            <option value="">Cualquier año</option>
+            <option value="2023">2023 en adelante</option>
+            <option value="2022">2022 en adelante</option>
+            <option value="2020">2020 en adelante</option>
+            <option value="2018">2018 en adelante</option>
+            <option value="2015">2015 en adelante</option>
+          </select>
+          <div class="cfilter-value" id="cv-anio">—</div>
+        </div>
+
+      </div>
+
+      <!-- CTA Row -->
+      <div class="cockpit-cta">
+        <button class="cockpit-search-btn" onclick="runCockpitSearch()">
+          🔍 &nbsp; Buscar Autos Ahora
+        </button>
+        <button class="cockpit-reset" onclick="resetCockpit()">↺ Limpiar</button>
+      </div>
+
+      <!-- Active filter chips -->
+      <div class="active-filters" id="active-filters"></div>
+    </div>
+
+    <!-- Quick search chips -->
+    <div class="vhero-quick">
+      <span>Populares:</span>
+      <span class="qchip" onclick="quickFilter('electric')">⚡ Eléctricos</span>
+      <span class="qchip" onclick="quickFilter('sport')">🏎 Deportivos</span>
+      <span class="qchip" onclick="quickFilter('low_rate')">💰 Tasa más baja</span>
+      <span class="qchip" onclick="quickFilter('nexus_top')">⭐ NexusScore 90+</span>
+      <span class="qchip" onclick="quickFilter('certified')">✅ Certificados</span>
+      <span class="qchip" onclick="quickFilter('new')">🆕 Nuevos 2025</span>
+    </div>
+  </div>
+
+  <!-- Scroll hint -->
+  <div class="scroll-hint">Explorar</div>
+</section>
+
+<!-- CATÁLOGO -->
+<section class="section" id="catalogo">
+  <div class="section-inner">
+    <div class="section-header">
+      <div>
+        <div class="section-title">Catálogo <span>AutoNexus</span></div>
+        <div class="section-sub" id="car-count">Mostrando 6 de 12,847 vehículos disponibles</div>
+      </div>
+      <div style="display:flex;gap:10px">
+        <select class="btn btn-outline" style="cursor:pointer;font-family:'Rajdhani',sans-serif;font-weight:600" onchange="sortCars(this.value)">
+          <option value="nexus">⭐ NexusScore</option>
+          <option value="price_asc">💰 Precio ↑</option>
+          <option value="price_desc">💰 Precio ↓</option>
+          <option value="rate">📊 Mejor tasa</option>
+        </select>
+        <button class="btn btn-gold" onclick="scrollToSection('comparador')">⚡ Comparar selección</button>
+      </div>
+    </div>
+
+    <div class="car-grid" id="car-grid"></div>
+  </div>
+</section>
+
+<!-- COMPARADOR -->
+<section class="comparador-section" id="comparador">
+  <div class="comparador-inner">
+    <div class="section-header" style="justify-content:flex-start;gap:1rem;align-items:flex-end">
+      <div>
+        <div class="section-title">Comparador <span>Avanzado</span></div>
+        <div class="section-sub">Análisis técnico y financiero en tiempo real — Exclusivo AutoNexus</div>
+      </div>
+    </div>
+
+    <div class="compare-table">
+      <div class="compare-header-row">
+        <div class="compare-col-header" style="color:rgba(255,255,255,0.4);font-size:0.75rem;text-transform:uppercase;letter-spacing:0.1em">Atributo</div>
+        <div class="compare-col-header">
+          <span class="compare-car-name">BMW Serie 3</span>
+          <span class="compare-car-sub">2025 · M Sport</span>
+        </div>
+        <div class="compare-col-header">
+          <span class="compare-car-name">Audi A4</span>
+          <span class="compare-car-sub">2025 · S-Line</span>
+        </div>
+        <div class="compare-col-header">
+          <span class="compare-car-name">Mercedes C200</span>
+          <span class="compare-car-sub">2025 · AMG Line</span>
+        </div>
+      </div>
+
+      <div class="compare-row">
+        <div class="compare-cell">💰 Precio</div>
+        <div class="compare-cell best">$55,900 <span class="win-badge">MEJOR</span></div>
+        <div class="compare-cell ok">$57,400</div>
+        <div class="compare-cell ok">$62,100</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell">📅 Cuota mensual</div>
+        <div class="compare-cell best">$621/mes <span class="win-badge">MEJOR</span></div>
+        <div class="compare-cell ok">$638/mes</div>
+        <div class="compare-cell ok">$691/mes</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell">📊 Tasa de interés</div>
+        <div class="compare-cell best">6.5% <span class="win-badge">MEJOR</span></div>
+        <div class="compare-cell ok">6.9%</div>
+        <div class="compare-cell ok">7.2%</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell">⚡ Potencia</div>
+        <div class="compare-cell ok">255 HP</div>
+        <div class="compare-cell good">261 HP <span class="win-badge">MEJOR</span></div>
+        <div class="compare-cell ok">204 HP</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell">⛽ Consumo</div>
+        <div class="compare-cell good">9.2 L/100km <span class="win-badge">MEJOR</span></div>
+        <div class="compare-cell ok">9.5 L/100km</div>
+        <div class="compare-cell ok">9.8 L/100km</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell">🏎 0-100 km/h</div>
+        <div class="compare-cell best">5.8s <span class="win-badge">MEJOR</span></div>
+        <div class="compare-cell ok">5.7s</div>
+        <div class="compare-cell ok">7.5s</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell">📉 Depreciación 3 años</div>
+        <div class="compare-cell ok">-28%</div>
+        <div class="compare-cell good">-25% <span class="win-badge">MEJOR</span></div>
+        <div class="compare-cell ok">-31%</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell">🛡 Seguro estimado/año</div>
+        <div class="compare-cell ok">$2,100</div>
+        <div class="compare-cell good">$1,950 <span class="win-badge">MEJOR</span></div>
+        <div class="compare-cell ok">$2,380</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell">⭐ NexusScore™</div>
+        <div class="compare-cell best" style="font-family:'Orbitron',monospace;font-size:1.1rem">92 <span class="win-badge">MEJOR</span></div>
+        <div class="compare-cell ok" style="font-family:'Orbitron',monospace">88</div>
+        <div class="compare-cell ok" style="font-family:'Orbitron',monospace">85</div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:1.5rem">
+      <button class="btn btn-gold" onclick="openModal('compare')">✦ Ver Análisis IA Completo</button>
+    </div>
+  </div>
+</section>
+
+<!-- TASAS DE INTERÉS -->
+<section class="tasas-section" id="tasas">
+  <div class="tasas-inner">
+    <div class="section-header">
+      <div>
+        <div class="section-title">Tasas de <span>Interés</span> en Tiempo Real</div>
+        <div class="section-sub">34 entidades financieras comparadas — Actualizado hace 12 min</div>
+      </div>
+      <div class="tag-live">Datos en vivo</div>
+    </div>
+
+    <div class="tasas-grid" id="tasas-grid"></div>
+
+    <div style="margin-top:2rem;padding:1.5rem;background:var(--blue-pale);border-radius:12px;border:1px solid rgba(37,99,235,0.2);display:flex;gap:1rem;align-items:center">
+      <div style="font-size:1.5rem">🤖</div>
+      <div>
+        <div style="font-weight:700;color:var(--blue-deep);margin-bottom:4px">IA de Financiamiento</div>
+        <div style="font-size:0.85rem;color:var(--gray-600)">Ingresa tus datos y la IA calcula la mejor combinación banco + plazo para minimizar el costo total del préstamo.</div>
+      </div>
+      <button class="btn btn-primary" style="white-space:nowrap;margin-left:auto" onclick="openModal('finance')">Calcular ahora →</button>
+    </div>
+  </div>
+</section>
+
+<!-- NEXUS SCORE SECTION -->
+<section class="nexus-section">
+  <div class="nexus-inner">
+    <div class="section-header">
+      <div>
+        <div class="section-title">NexusScore<span>™</span> — Exclusivo AutoNexus</div>
+        <div class="section-sub">El único índice que combina valor, rendimiento, costo total y depreciación en un solo número</div>
+      </div>
+    </div>
+
+    <div class="nexus-grid">
+      <div class="nexus-score-big">
+        <div class="big-score-label">NexusScore™ Ejemplo</div>
+        <div class="big-score-num">92</div>
+        <div class="big-score-sub">BMW Serie 3 M Sport 2025</div>
+        <div class="score-bars">
+          <div class="score-bar-item">
+            <div class="score-bar-label"><span>Valor de mercado</span><span>95/100</span></div>
+            <div class="score-bar-track"><div class="score-bar-fill" style="width:95%"></div></div>
+          </div>
+          <div class="score-bar-item">
+            <div class="score-bar-label"><span>Rendimiento</span><span>90/100</span></div>
+            <div class="score-bar-track"><div class="score-bar-fill" style="width:90%"></div></div>
+          </div>
+          <div class="score-bar-item">
+            <div class="score-bar-label"><span>Costo de posesión</span><span>88/100</span></div>
+            <div class="score-bar-track"><div class="score-bar-fill" style="width:88%"></div></div>
+          </div>
+          <div class="score-bar-item">
+            <div class="score-bar-label"><span>Depreciación</span><span>92/100</span></div>
+            <div class="score-bar-track"><div class="score-bar-fill" style="width:92%"></div></div>
+          </div>
+          <div class="score-bar-item">
+            <div class="score-bar-label"><span>Satisfacción usuarios</span><span>96/100</span></div>
+            <div class="score-bar-track"><div class="score-bar-fill" style="width:96%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nexus-criteria">
+        <div class="criterion">
+          <div class="criterion-icon" style="background:linear-gradient(135deg,#DBEAFE,#93C5FD)">💰</div>
+          <div>
+            <div class="criterion-title">Análisis de Valor Real</div>
+            <div class="criterion-desc">Compara el precio del vehículo con 15,000+ transacciones similares. Te dice si estás pagando de más o consiguiendo una ganga real.</div>
+          </div>
+          <div class="criterion-weight">25%</div>
+        </div>
+        <div class="criterion">
+          <div class="criterion-icon" style="background:linear-gradient(135deg,#FEF3C7,#FDE68A)">⚙️</div>
+          <div>
+            <div class="criterion-title">Índice de Rendimiento Técnico</div>
+            <div class="criterion-desc">Potencia, consumo, aceleración y emisiones ponderados según el uso típico del comprador. No es solo velocidad — es eficiencia real.</div>
+          </div>
+          <div class="criterion-weight">20%</div>
+        </div>
+        <div class="criterion">
+          <div class="criterion-icon" style="background:linear-gradient(135deg,#ECFDF5,#A7F3D0)">📉</div>
+          <div>
+            <div class="criterion-title">Curva de Depreciación Proyectada</div>
+            <div class="criterion-desc">Modela el valor del auto a 1, 3 y 5 años usando IA. Algunos autos pierden 40% en 2 años — saber esto antes de comprar es invaluable.</div>
+          </div>
+          <div class="criterion-weight">25%</div>
+        </div>
+        <div class="criterion">
+          <div class="criterion-icon" style="background:linear-gradient(135deg,#FEF2F2,#FECACA)">🛡</div>
+          <div>
+            <div class="criterion-title">Costo Total de Posesión (5 años)</div>
+            <div class="criterion-desc">Suma seguro + mantenimiento + combustible + depreciación estimada. El precio de lista es solo el principio de la historia.</div>
+          </div>
+          <div class="criterion-weight">20%</div>
+        </div>
+        <div class="criterion">
+          <div class="criterion-icon" style="background:linear-gradient(135deg,#EDE9FE,#C4B5FD)">⭐</div>
+          <div>
+            <div class="criterion-title">Satisfacción Verificada de Propietarios</div>
+            <div class="criterion-desc">Reseñas verificadas por VIN. Solo propietarios reales pueden opinar. Detecta problemas recurrentes que los folletos no muestran.</div>
+          </div>
+          <div class="criterion-weight">10%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- UPLOAD / VENDER SECTION -->
+<section class="upload-section" id="vender">
+  <div class="upload-inner">
+    <div class="section-header">
+      <div>
+        <div class="section-title">Publicar mi <span>Auto</span></div>
+        <div class="section-sub">La IA valúa tu vehículo en segundos y lo lista en el mejor precio de mercado</div>
+      </div>
+    </div>
+
+    <div class="upload-grid">
+      <div class="upload-form">
+        <div class="form-title">📋 Datos del Vehículo</div>
+        <div class="form-subtitle">Completa el formulario — La IA genera el anuncio automáticamente</div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Marca</label>
+            <select><option>BMW</option><option>Mercedes</option><option>Audi</option><option>Toyota</option><option>Ford</option><option>Otro</option></select>
+          </div>
+          <div class="form-group">
+            <label>Modelo</label>
+            <input type="text" placeholder="Serie 3, A4, Corolla…">
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Año</label>
+            <input type="number" placeholder="2020" min="1990" max="2025">
+          </div>
+          <div class="form-group">
+            <label>Kilometraje</label>
+            <input type="number" placeholder="45,000">
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Combustible</label>
+            <select><option>Nafta</option><option>Diésel</option><option>Eléctrico</option><option>Híbrido</option></select>
+          </div>
+          <div class="form-group">
+            <label>Transmisión</label>
+            <select><option>Automático</option><option>Manual</option></select>
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Color</label>
+            <input type="text" placeholder="Negro, Blanco…">
+          </div>
+          <div class="form-group">
+            <label>Precio (USD)</label>
+            <input type="number" placeholder="25,000">
+          </div>
+        </div>
+        <div class="form-grid full">
+          <div class="form-group">
+            <label>Descripción adicional</label>
+            <textarea rows="3" placeholder="Equipo de sonido, cuero, sunroof, historial de servicio…"></textarea>
+          </div>
+        </div>
+
+        <div class="upload-zone" onclick="notify('📎 Sube tus fotos — máximo 20 imágenes en alta resolución')">
+          <div class="upload-icon">📷</div>
+          <div class="upload-text">Arrastra o haz clic para subir fotos</div>
+          <div class="upload-hint">JPG, PNG, HEIC — Hasta 20 fotos · Máx 10MB c/u</div>
+        </div>
+
+        <button class="btn btn-gold" style="width:100%;justify-content:center;padding:14px;font-size:1rem" onclick="notify('🤖 La IA está analizando tu vehículo y generando el anuncio óptimo…')">
+          ✦ Publicar con IA — Gratis
+        </button>
+      </div>
+
+      <div>
+        <div style="margin-bottom:1.5rem">
+          <div class="section-title" style="font-size:1.2rem;margin-bottom:8px">¿Por qué AutoNexus?</div>
+          <p style="font-size:0.88rem;color:var(--gray-500);line-height:1.6">Funcionalidades que no encontrarás en ninguna otra plataforma del mercado.</p>
+        </div>
+
+        <div class="features-list">
+          <div class="feature-item">
+            <div class="feature-icon">🤖</div>
+            <div>
+              <div class="feature-title">Valuación IA en Tiempo Real</div>
+              <div class="feature-desc">Analiza 50,000+ transacciones recientes para darte el precio exacto de mercado, no estimaciones genéricas.</div>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon gold">💰</div>
+            <div>
+              <div class="feature-title">Comparador de Tasas 34 Bancos</div>
+              <div class="feature-desc">Exclusivo: conectamos en tiempo real con 34 entidades financieras para mostrarte la cuota más baja posible.</div>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">📊</div>
+            <div>
+              <div class="feature-title">NexusScore™ Propietario</div>
+              <div class="feature-desc">El único score del mercado que combina valor, rendimiento, depreciación y costo total en un índice de 0 a 100.</div>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon gold">🔍</div>
+            <div>
+              <div class="feature-title">Historial por VIN Verificado</div>
+              <div class="feature-desc">Acceso al historial completo: accidentes, mantenimientos, propietarios anteriores y multas pendientes.</div>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">📉</div>
+            <div>
+              <div class="feature-title">Proyección de Depreciación</div>
+              <div class="feature-desc">Gráfica interactiva que muestra cómo evolucionará el valor del auto a 1, 3 y 5 años con IA predictiva.</div>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon gold">🛡</div>
+            <div>
+              <div class="feature-title">Escrow Seguro de Pagos</div>
+              <div class="feature-desc">El dinero queda en custodia hasta que ambas partes confirmen la transacción. Cero riesgos de fraude.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI SECTION -->
+<section class="ai-section">
+  <div class="ai-inner">
+    <div class="ai-orb">🤖</div>
+    <div class="ai-title">NexusAI — Tu Asesor<br><span>Inteligente de Autos</span></div>
+    <p class="ai-desc">Pregunta cualquier cosa sobre autos, financiamiento o el mercado. La IA te responde con datos reales en segundos.</p>
+
+    <div class="ai-chips">
+      <span class="ai-chip">¿Qué auto se deprecia menos?</span>
+      <span class="ai-chip">¿Cuánto pagaré en total con un crédito a 5 años?</span>
+      <span class="ai-chip">¿BMW o Mercedes por $55k?</span>
+      <span class="ai-chip">¿Cuál es la tasa más baja hoy?</span>
+      <span class="ai-chip">¿Vale la pena un eléctrico?</span>
+    </div>
+
+    <div class="ai-input-row">
+      <input class="ai-input" type="text" placeholder="Pregunta al NexusAI…" id="ai-question">
+      <button class="btn btn-gold" onclick="askAI()">Preguntar →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo" style="margin-bottom:1rem">
+          <div class="logo-icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/>
+            </svg>
+          </div>
+          Auto<span>Nexus</span>
+        </div>
+        <p>La plataforma más avanzada del mercado automotriz. Tecnología de punta para compradores y vendedores inteligentes.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Comprar</h4>
+        <ul>
+          <li><a href="#">Autos nuevos</a></li>
+          <li><a href="#">Autos usados</a></li>
+          <li><a href="#">Certificados CPO</a></li>
+          <li><a href="#">Comparador</a></li>
+          <li><a href="#">NexusScore™</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Vender</h4>
+        <ul>
+          <li><a href="#">Publicar auto</a></li>
+          <li><a href="#">Valuación IA</a></li>
+          <li><a href="#">Planes premium</a></li>
+          <li><a href="#">Concesionarios</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Recursos</h4>
+        <ul>
+          <li><a href="#">Calculadora crédito</a></li>
+          <li><a href="#">Tasas en vivo</a></li>
+          <li><a href="#">Guía de compra</a></li>
+          <li><a href="#">Blog AutoNexus</a></li>
+          <li><a href="#">Soporte</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 AutoNexus. Todos los derechos reservados.</span>
+      <span>Tecnología <span>✦</span> Confianza <span>✦</span> Futuro</span>
+    </div>
+  </div>
+</footer>
+
+<!-- FLOATING BUTTONS -->
+<div class="floating-cta">
+  <button class="fcta-btn gold" title="Calcular financiamiento" onclick="openModal('finance')">💰</button>
+  <button class="fcta-btn blue" title="Comparar autos" onclick="scrollToSection('comparador')">⚡</button>
+</div>
+
+<!-- NOTIFICATION -->
+<div class="notification" id="notification">
+  <span id="notif-text">✓ Acción completada</span>
+</div>
+
+<!-- MODALS -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModalOutside(event)">
+  <div class="modal" id="modal-content">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// --- AI CONFIG (OpenAI) ---
+// La API Key se guarda en localStorage bajo 'nexus_openai_key'
+// ============================================================
+const AI_CONFIG = {
+  getKey: () => localStorage.getItem('nexus_openai_key') || '',
+  setKey: (k) => { localStorage.setItem('nexus_openai_key', k.trim()); console.log('[NexusAI] API Key guardada en localStorage ✓'); },
+  model: 'gpt-4o-mini',
+  endpoint: 'https://api.openai.com/v1/chat/completions',
+  systemPrompt: `Eres NexusAI, el asistente de AutoNexus, la plataforma de venta de autos más avanzada. 
+Respondes en español, de manera concisa y útil (máximo 3 párrafos). 
+Eres experto en: precios de mercado de autos, tasas de interés, financiamiento automotriz, 
+depreciación de vehículos, comparación de modelos, y tendencias del mercado automotriz. 
+Cuando no tengas datos exactos, ofrece orientación general basada en el mercado.`
+};
+
+// --- DATA ---
+const cars = [
+  { id:1, make:'BMW', name:'Serie 3 M Sport', year:2025, type:'Nuevo', km:0, fuel:'Nafta', trans:'Auto', price:55900, monthly:621, rate:6.5, hp:255, consumption:9.2, acc:5.8, nexus:92, grade:'A', dep:28, insurance:2100 },
+  { id:2, make:'Tesla', name:'Model 3 Long Range', year:2024, type:'Nuevo', km:0, fuel:'Eléctrico', trans:'Auto', price:47900, monthly:532, rate:5.9, hp:358, consumption:0, acc:4.2, nexus:96, grade:'A', dep:22, insurance:1800 },
+  { id:3, make:'Audi', name:'A4 S-Line', year:2025, type:'Nuevo', km:0, fuel:'Nafta', trans:'Auto', price:57400, monthly:638, rate:6.9, hp:261, consumption:9.5, acc:5.7, nexus:88, grade:'A', dep:25, insurance:1950 },
+  { id:4, make:'Toyota', name:'Camry XSE', year:2023, type:'Usado', km:32000, fuel:'Híbrido', trans:'Auto', price:28900, monthly:321, rate:7.5, hp:203, consumption:6.2, acc:7.2, nexus:90, grade:'A', dep:18, insurance:1200 },
+  { id:5, make:'Mercedes-Benz', name:'C200 AMG Line', year:2025, type:'Nuevo', km:0, fuel:'Nafta', trans:'Auto', price:62100, monthly:691, rate:7.2, hp:204, consumption:9.8, acc:7.5, nexus:85, grade:'B', dep:31, insurance:2380 },
+  { id:6, make:'Ford', name:'Mustang GT Premium', year:2024, type:'Certificado', km:18000, fuel:'Nafta', trans:'Manual', price:39500, monthly:439, rate:6.8, hp:450, consumption:14.2, acc:4.8, nexus:82, grade:'B', dep:35, insurance:2200 },
+];
+
+const banks = [
+  { name:'BankPlus', type:'Banco Digital', rate:4.2, plazo:84, montoMin:10000, featured:true, initial:20 },
+  { name:'NexoBank', type:'Financiera Online', rate:5.1, plazo:72, montoMin:5000, featured:false, initial:15 },
+  { name:'CrediAuto', type:'Banco Automotriz', rate:5.8, plazo:60, montoMin:8000, featured:false, initial:20 },
+  { name:'BancoPrime', type:'Banco Comercial', rate:6.2, plazo:84, montoMin:15000, featured:false, initial:25 },
+  { name:'FinanzAuto', type:'Cooperativa', rate:6.5, plazo:72, montoMin:5000, featured:false, initial:10 },
+  { name:'GlobalCredit', type:'Banco Internacional', rate:6.9, plazo:60, montoMin:20000, featured:false, initial:30 },
+];
+
+let filteredCars = [...cars];
+
+// --- RENDER CARS ---
+function carSVG(fuel) {
+  const colors = { 'Eléctrico':'#10B981','Híbrido':'#10B981','Nafta':'#1456B0','Diésel':'#475569','Manual':'#1456B0' };
+  const c = colors[fuel] || '#1456B0';
+  return `<svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg" style="width:160px;opacity:0.85">
+    <defs>
+      <linearGradient id="cg${Math.random().toString(36).substr(2,4)}" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="${c}"/><stop offset="100%" stop-color="${c}cc"/>
+      </linearGradient>
+    </defs>
+    <ellipse cx="100" cy="80" rx="72" ry="7" fill="rgba(0,0,0,0.07)"/>
+    <path d="M22 64 L40 40 Q65 26 100 26 Q135 26 160 40 L178 64 L178 75 Q178 80 170 80 L30 80 Q22 80 22 75 Z" fill="${c}"/>
+    <path d="M45 62 L57 38 Q78 28 122 28 L142 38 L148 62 Z" fill="rgba(147,197,253,0.85)"/>
+    <line x1="95" y1="28" x2="95" y2="62" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+    <circle cx="58" cy="80" r="14" fill="#1E293B"/><circle cx="58" cy="80" r="8" fill="#334155"/><circle cx="58" cy="80" r="4" fill="${c}"/>
+    <circle cx="142" cy="80" r="14" fill="#1E293B"/><circle cx="142" cy="80" r="8" fill="#334155"/><circle cx="142" cy="80" r="4" fill="${c}"/>
+    <path d="M40 53 Q70 46 100 46 Q130 46 160 53" stroke="rgba(212,160,23,0.5)" stroke-width="1.5" fill="none"/>
+    <ellipse cx="173" cy="58" rx="6" ry="4" fill="#D4A017" opacity="0.8"/>
+  </svg>`;
+}
+
+function renderCars() {
+  const grid = document.getElementById('car-grid');
+  const count = document.getElementById('car-count');
+  count.textContent = `Mostrando ${filteredCars.length} de 12,847 vehículos disponibles`;
+  grid.innerHTML = filteredCars.map(car => `
+    <div class="car-card" onclick="openCarDetail(${car.id})">
+      <div class="card-img">
+        <div class="card-img-overlay"></div>
+        ${carSVG(car.fuel)}
+        <div class="card-badges">
+          <span class="car-badge ${car.type === 'Nuevo' ? 'badge-nuevo' : car.type === 'Certificado' ? 'badge-nuevo' : 'badge-usado'}">${car.type}</span>
+          ${car.nexus >= 90 ? '<span class="car-badge" style="background:#ECFDF5;color:#059669;border:1px solid rgba(5,150,105,0.3)">⭐ Top</span>' : ''}
+        </div>
+        <button class="fav-btn" onclick="toggleFav(event, this)">♡</button>
+      </div>
+      <div class="card-body">
+        <div class="card-make">${car.make} · ${car.year} · ${car.km > 0 ? car.km.toLocaleString() + ' km' : '0 km — Nuevo'}</div>
+        <div class="card-name">${car.name}</div>
+        <div class="card-specs">
+          <span class="card-spec"><span class="spec-icon">⛽</span>${car.fuel}</span>
+          <span class="card-spec"><span class="spec-icon">⚙️</span>${car.trans}</span>
+          <span class="card-spec"><span class="spec-icon">⚡</span>${car.hp}hp</span>
+        </div>
+        <div class="card-metrics">
+          <div class="metric"><span class="metric-val">${car.fuel === 'Eléctrico' ? '—' : car.consumption + 'L'}</span><span class="metric-key">Cons.</span></div>
+          <div class="metric"><span class="metric-val">${car.acc}s</span><span class="metric-key">0-100</span></div>
+          <div class="metric"><span class="metric-val">${car.rate}%</span><span class="metric-key">Tasa</span></div>
+        </div>
+        <div class="card-bottom">
+          <div>
+            <div class="card-price">$${car.price.toLocaleString()}</div>
+            <div class="card-monthly">Desde $${car.monthly}/mes</div>
+          </div>
+          <span class="nexus-score ${car.grade === 'A' ? 'score-a' : car.grade === 'B' ? 'score-b' : 'score-c'}">${car.nexus} NS</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// --- RENDER BANKS ---
+function renderBanks() {
+  const grid = document.getElementById('tasas-grid');
+  grid.innerHTML = banks.map(b => `
+    <div class="tasa-card ${b.featured ? 'featured' : ''}">
+      <div class="bank-logo">${b.name.substr(0,4).toUpperCase()}</div>
+      <div class="bank-name">${b.name}</div>
+      <div class="bank-type">${b.type}</div>
+      <div class="tasa-num">${b.rate}%</div>
+      <div class="tasa-label">Tasa anual efectiva</div>
+      <div class="tasa-details">
+        <div class="tasa-detail"><strong>${b.plazo} meses</strong>Plazo máx.</div>
+        <div class="tasa-detail"><strong>${b.initial}%</strong>Entrada mín.</div>
+        <div class="tasa-detail"><strong>$${b.montoMin.toLocaleString()}</strong>Monto mín.</div>
+        <div class="tasa-detail"><strong>${b.featured ? '✓ Recom.' : 'Disponible'}</strong>Estado</div>
+      </div>
+      <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:1rem;font-size:0.82rem;padding:8px" onclick="notify('📊 Simulando crédito con ${b.name} al ${b.rate}%…'); event.stopPropagation()">
+        Simular crédito →
+      </button>
+    </div>
+  `).join('');
+}
+
+// --- FILTERS ---
+function filterCars() {
+  const tipo = document.getElementById('f-tipo').value;
+  const marca = document.getElementById('f-marca').value;
+  const precio = document.getElementById('f-precio').value;
+  const search = document.getElementById('f-search').value.toLowerCase();
+
+  filteredCars = cars.filter(c => {
+    if (tipo && c.type !== tipo) return false;
+    if (marca && c.make !== marca) return false;
+    if (precio && c.price > parseInt(precio)) return false;
+    if (search && !`${c.make} ${c.name}`.toLowerCase().includes(search)) return false;
+    return true;
+  });
+  renderCars();
+}
+
+function quickFilter(type) {
+  filteredCars = cars.filter(c => {
+    if (type === 'electric') return c.fuel === 'Eléctrico';
+    if (type === 'sport') return c.acc < 6;
+    if (type === 'low_rate') return c.rate < 6.5;
+    if (type === 'nexus_top') return c.nexus >= 90;
+    if (type === 'certified') return c.type === 'Certificado';
+    if (type === 'suv') return false;
+    return true;
+  });
+  renderCars();
+  scrollToSection('catalogo');
+  notify('🔍 Filtro aplicado — ' + filteredCars.length + ' resultados');
+}
+
+function sortCars(by) {
+  if (by === 'price_asc') filteredCars.sort((a,b) => a.price - b.price);
+  if (by === 'price_desc') filteredCars.sort((a,b) => b.price - a.price);
+  if (by === 'nexus') filteredCars.sort((a,b) => b.nexus - a.nexus);
+  if (by === 'rate') filteredCars.sort((a,b) => a.rate - b.rate);
+  renderCars();
+}
+
+// --- MODALS ---
+function openCarDetail(id) {
+  const car = cars.find(c => c.id === id);
+  document.getElementById('modal-body').innerHTML = `
+    <div class="modal-title">🚗 ${car.make} ${car.name}</div>
+    <div class="modal-sub">${car.year} · ${car.type} · ${car.km > 0 ? car.km.toLocaleString() + ' km' : '0 km'} · ${car.fuel} · ${car.trans}</div>
+    <div class="car-detail-grid">
+      <div class="detail-box"><div class="detail-box-title">Potencia</div><div class="detail-box-val">${car.hp} HP</div></div>
+      <div class="detail-box"><div class="detail-box-title">0-100 km/h</div><div class="detail-box-val">${car.acc}s</div></div>
+      <div class="detail-box"><div class="detail-box-title">Consumo</div><div class="detail-box-val">${car.fuel === 'Eléctrico' ? '— kWh' : car.consumption + ' L/100'}</div></div>
+      <div class="detail-box"><div class="detail-box-title">Tasa mínima</div><div class="detail-box-val">${car.rate}%</div></div>
+      <div class="detail-box"><div class="detail-box-title">Depreciación 3 años</div><div class="detail-box-val">-${car.dep}%</div></div>
+      <div class="detail-box"><div class="detail-box-title">Seguro estimado/año</div><div class="detail-box-val">$${car.insurance.toLocaleString()}</div></div>
+    </div>
+    <div class="modal-price-row">
+      <div>
+        <div class="modal-price">$${car.price.toLocaleString()}</div>
+        <div class="modal-price small">Desde $${car.monthly}/mes — Tasa ${car.rate}%</div>
+      </div>
+      <div class="score-ring" style="border-color:var(--gold-light)">
+        <div class="score-num" style="font-size:1.3rem;color:var(--gold-light)">${car.nexus}</div>
+        <div class="score-label" style="color:rgba(255,255,255,0.6)">NexusScore</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px">
+      <button class="btn btn-primary" style="flex:1;justify-content:center;padding:12px" onclick="notify('📞 Contactando al vendedor…');closeModal()">Contactar vendedor</button>
+      <button class="btn btn-gold" style="flex:1;justify-content:center;padding:12px" onclick="notify('💰 Abriendo calculadora de crédito…');closeModal()">Simular crédito</button>
+    </div>
+  `;
+  document.getElementById('modal-overlay').classList.add('open');
+}
+
+function openModal(type) {
+  let body = '';
+  if (type === 'login') {
+    body = `<div class="modal-title">Ingresar a AutoNexus</div><div class="modal-sub">Accede a tu cuenta para guardar favoritos y gestionar tus publicaciones</div>
+    <div class="form-group" style="margin-bottom:1rem"><label>Email</label><input type="email" placeholder="tu@email.com" style="width:100%"></div>
+    <div class="form-group" style="margin-bottom:1.5rem"><label>Contraseña</label><input type="password" placeholder="••••••••" style="width:100%"></div>
+    <button class="btn btn-primary" style="width:100%;justify-content:center;padding:12px;font-size:1rem;margin-bottom:10px" onclick="notify('✓ Sesión iniciada correctamente');closeModal()">Ingresar</button>
+    <button class="btn btn-gold" style="width:100%;justify-content:center;padding:12px;font-size:1rem" onclick="notify('📧 Registro completado — revisa tu email');closeModal()">Crear cuenta gratis</button>`;
+  } else if (type === 'finance') {
+    body = `<div class="modal-title">💰 Calculadora de Financiamiento IA</div><div class="modal-sub">Encuentra la cuota más baja entre 34 entidades financieras</div>
+    <div class="form-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem">
+      <div class="form-group"><label>Precio del auto ($)</label><input type="number" placeholder="50,000" id="calc-price" style="width:100%"></div>
+      <div class="form-group"><label>Entrada (%)</label><input type="number" placeholder="20" id="calc-down" style="width:100%"></div>
+      <div class="form-group"><label>Plazo (meses)</label><select id="calc-term" style="width:100%;padding:10px 14px;border-radius:8px;border:1.5px solid var(--gray-200);font-family:'Rajdhani',sans-serif;font-size:0.95rem"><option value="36">36 meses</option><option value="48">48 meses</option><option value="60" selected>60 meses</option><option value="72">72 meses</option><option value="84">84 meses</option></select></div>
+      <div class="form-group"><label>Puntaje crediticio</label><select id="calc-credit" style="width:100%;padding:10px 14px;border-radius:8px;border:1.5px solid var(--gray-200);font-family:'Rajdhani',sans-serif;font-size:0.95rem"><option>Excelente (750+)</option><option>Bueno (700-749)</option><option>Regular (650-699)</option></select></div>
+    </div>
+    <button class="btn btn-gold" style="width:100%;justify-content:center;padding:14px;font-size:1rem;margin-bottom:1.5rem" onclick="calcFinance()">⚡ Calcular con IA</button>
+    <div id="calc-result" style="display:none;background:var(--blue-deep);border-radius:12px;padding:1.5rem;color:white;text-align:center">
+      <div style="font-family:'Orbitron',monospace;font-size:0.7rem;letter-spacing:0.15em;color:rgba(255,255,255,0.5);margin-bottom:8px">CUOTA MENSUAL ESTIMADA</div>
+      <div id="calc-monthly" style="font-family:'Orbitron',monospace;font-weight:900;font-size:2.5rem;color:var(--gold-light)">$421/mes</div>
+      <div id="calc-details" style="font-size:0.82rem;color:rgba(255,255,255,0.6);margin-top:8px">Tasa: 4.2% · BankPlus · 60 meses</div>
+    </div>`;
+  } else if (type === 'compare') {
+    body = `<div class="modal-title">⚡ Análisis IA — Recomendación</div><div class="modal-sub">Basado en precio, rendimiento, costo total y depreciación</div>
+    <div style="background:linear-gradient(135deg,var(--blue-deep),var(--blue-mid));border-radius:14px;padding:2rem;color:white;margin-bottom:1.5rem;position:relative;overflow:hidden">
+      <div style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.15em;color:rgba(255,255,255,0.5);margin-bottom:8px">RECOMENDACIÓN IA</div>
+      <div style="font-family:'Orbitron',monospace;font-weight:700;font-size:1.3rem;color:var(--gold-light);margin-bottom:8px">BMW Serie 3 M Sport 2025</div>
+      <div style="font-size:0.88rem;color:rgba(255,255,255,0.7);line-height:1.6">Mejor equilibrio precio-rendimiento. Tasa de financiamiento más baja del grupo y consumo superior. Si bien el Audi A4 tiene ligeramente más potencia, el BMW ofrece un costo total a 5 años $4,200 menor. NexusScore más alto del segmento: 92/100.</div>
+      <div style="font-family:'Orbitron',monospace;font-weight:900;font-size:3rem;color:var(--gold-light);position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);opacity:0.3">92</div>
+    </div>
+    <button class="btn btn-gold" style="width:100%;justify-content:center;padding:12px;font-size:1rem" onclick="notify('🚗 Abriendo ficha completa del BMW');closeModal()">Ver detalles completos →</button>`;
+  } else if (type === 'aiconfig') {
+    const savedKey = AI_CONFIG.getKey();
+    const maskedKey = savedKey ? savedKey.substr(0,8) + '••••••••••••••••' + savedKey.slice(-4) : '';
+    body = `
+    <div class="modal-title">⚙️ Configuración NexusAI</div>
+    <div class="modal-sub">Conecta tu cuenta de OpenAI para activar el asistente inteligente</div>
+    <div style="background:var(--blue-pale);border-radius:12px;padding:1rem 1.2rem;margin-bottom:1.5rem;border:1px solid rgba(37,99,235,0.2)">
+      <div style="font-size:0.82rem;color:var(--blue-accent);line-height:1.6">
+        <strong>¿Cómo obtener tu API Key?</strong><br>
+        1. Ve a <strong>platform.openai.com</strong> → API Keys<br>
+        2. Crea una nueva key (empieza con <code style="background:var(--gray-200);padding:1px 5px;border-radius:3px">sk-</code>)<br>
+        3. Pégala abajo y haz clic en Guardar
+      </div>
+    </div>
+    <div class="form-group" style="margin-bottom:1rem">
+      <label>OpenAI API Key</label>
+      <input type="password" id="openai-key-input" placeholder="sk-proj-…"
+        value="${savedKey}"
+        style="width:100%;font-family:monospace;font-size:0.88rem"
+        oninput="document.getElementById('key-status').textContent=''">
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
+      <span id="key-status" style="font-size:0.82rem;color:var(--success)">
+        ${savedKey ? '✓ Key guardada: ' + maskedKey : ''}
+      </span>
+      <button style="font-size:0.78rem;background:none;border:none;color:var(--gray-400);cursor:pointer"
+        onclick="const i=document.getElementById('openai-key-input');i.type=i.type==='password'?'text':'password'">
+        👁 Mostrar/Ocultar
+      </button>
+    </div>
+    <div style="margin-bottom:1rem">
+      <label style="font-size:0.75rem;font-weight:600;color:var(--gray-600);text-transform:uppercase;letter-spacing:0.08em;display:block;margin-bottom:6px">Modelo</label>
+      <select id="openai-model-select" style="width:100%;padding:10px 14px;border-radius:8px;border:1.5px solid var(--gray-200);font-family:'Rajdhani',sans-serif;font-size:0.95rem">
+        <option value="gpt-4o-mini" selected>GPT-4o mini (recomendado — económico)</option>
+        <option value="gpt-4o">GPT-4o (más potente)</option>
+        <option value="gpt-3.5-turbo">GPT-3.5 Turbo (más rápido)</option>
+      </select>
+    </div>
+    <button class="btn btn-gold" style="width:100%;justify-content:center;padding:13px;font-size:1rem;margin-bottom:10px"
+      onclick="saveAIConfig()">
+      💾 Guardar Configuración
+    </button>
+    <button class="btn btn-outline" style="width:100%;justify-content:center;padding:10px;font-size:0.88rem"
+      onclick="testAIConfig()">
+      🧪 Probar conexión
+    </button>
+    <div id="test-result" style="margin-top:1rem;display:none;padding:1rem;border-radius:8px;font-size:0.85rem"></div>
+    `;
+  }
+  document.getElementById('modal-body').innerHTML = body;
+  document.getElementById('modal-overlay').classList.add('open');
+}
+
+// ---- AI Config helpers ----
+function saveAIConfig() {
+  const key = document.getElementById('openai-key-input')?.value?.trim();
+  const model = document.getElementById('openai-model-select')?.value;
+  if (!key || !key.startsWith('sk-')) {
+    console.error('[NexusAI Error] API Key inválida — debe comenzar con sk-');
+    document.getElementById('key-status').textContent = '❌ Key inválida. Debe comenzar con sk-';
+    document.getElementById('key-status').style.color = 'var(--danger)';
+    return;
+  }
+  AI_CONFIG.setKey(key);
+  if (model) AI_CONFIG.model = model;
+  const masked = key.substr(0,8) + '••••••••••••••••' + key.slice(-4);
+  document.getElementById('key-status').textContent = '✓ Guardada: ' + masked;
+  document.getElementById('key-status').style.color = 'var(--success)';
+  notify('✓ API Key de OpenAI guardada correctamente');
+  console.log('[NexusAI] Configuración guardada — modelo:', AI_CONFIG.model);
+}
+
+async function testAIConfig() {
+  const key = document.getElementById('openai-key-input')?.value?.trim() || AI_CONFIG.getKey();
+  const resultEl = document.getElementById('test-result');
+  if (!key) {
+    resultEl.style.display = 'block';
+    resultEl.style.background = '#FEF2F2'; resultEl.style.border = '1px solid #FECACA';
+    resultEl.innerHTML = '❌ No hay API Key. Ingresa una primero.';
+    console.error('[NexusAI Error] Intento de prueba sin API Key configurada');
+    return;
+  }
+  resultEl.style.display = 'block';
+  resultEl.style.background = 'var(--gray-50)'; resultEl.style.border = '1px solid var(--gray-200)';
+  resultEl.innerHTML = '⏳ Probando conexión con OpenAI…';
+  try {
+    console.log('[NexusAI] Probando conexión con OpenAI…');
+    const res = await fetch(AI_CONFIG.endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${key}` },
+      body: JSON.stringify({
+        model: 'gpt-4o-mini', max_tokens: 20,
+        messages: [{ role: 'user', content: 'Di solo "OK AutoNexus"' }]
+      })
+    });
+    if (!res.ok) {
+      const e = await res.json().catch(() => ({}));
+      throw new Error(e?.error?.message || 'HTTP ' + res.status);
+    }
+    const d = await res.json();
+    const txt = d?.choices?.[0]?.message?.content || 'Sin respuesta';
+    resultEl.style.background = '#ECFDF5'; resultEl.style.border = '1px solid #A7F3D0';
+    resultEl.innerHTML = '✅ Conexión exitosa — OpenAI respondió: <strong>' + txt + '</strong>';
+    console.log('[NexusAI] Prueba exitosa:', txt);
+  } catch (err) {
+    resultEl.style.background = '#FEF2F2'; resultEl.style.border = '1px solid #FECACA';
+    resultEl.innerHTML = '❌ Error: ' + err.message;
+    console.error('[NexusAI Error] Prueba de conexión fallida:', err.message, err);
+  }
+}
+
+function calcFinance() {
+  const price = parseFloat(document.getElementById('calc-price').value) || 50000;
+  const down = parseFloat(document.getElementById('calc-down').value) || 20;
+  const term = parseInt(document.getElementById('calc-term').value);
+  const rate = 4.2 / 100 / 12;
+  const loan = price * (1 - down/100);
+  const monthly = loan * rate / (1 - Math.pow(1 + rate, -term));
+  document.getElementById('calc-monthly').textContent = '$' + Math.round(monthly).toLocaleString() + '/mes';
+  document.getElementById('calc-details').textContent = `Tasa: 4.2% · BankPlus · ${term} meses · Total: $${(monthly * term).toLocaleString(undefined, {maximumFractionDigits:0})}`;
+  document.getElementById('calc-result').style.display = 'block';
+}
+
+function closeModal() { document.getElementById('modal-overlay').classList.remove('open'); }
+function closeModalOutside(e) { if (e.target === document.getElementById('modal-overlay')) closeModal(); }
+
+// --- UTILS ---
+function scrollToSection(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function notify(msg) {
+  const notif = document.getElementById('notification');
+  document.getElementById('notif-text').textContent = msg;
+  notif.classList.add('show');
+  setTimeout(() => notif.classList.remove('show'), 3500);
+}
+
+function toggleFav(e, btn) {
+  e.stopPropagation();
+  btn.classList.toggle('active');
+  btn.textContent = btn.classList.contains('active') ? '♥' : '♡';
+  notify(btn.classList.contains('active') ? '❤️ Agregado a favoritos' : '🗑 Eliminado de favoritos');
+}
+
+// ============================================================
+// --- NEXUSAI — OpenAI Integration con manejo de errores ---
+// ============================================================
+async function askAI() {
+  const q = document.getElementById('ai-question').value.trim();
+  if (!q) { notify('⚠️ Escribe una pregunta para NexusAI'); return; }
+
+  const apiKey = AI_CONFIG.getKey();
+  if (!apiKey) {
+    console.error('[NexusAI Error] No hay API Key configurada. Abre ⚙️ IA Config en el header.');
+    notify('⚙️ Configura tu OpenAI API Key primero — haz clic en "IA Config"');
+    openModal('aiconfig');
+    return;
+  }
+
+  // UI — estado de carga
+  const btn = document.querySelector('.ai-input-row button');
+  const input = document.getElementById('ai-question');
+  const origBtnText = btn.textContent;
+  btn.textContent = '⏳ Pensando…';
+  btn.disabled = true;
+  input.disabled = true;
+  notify('🤖 NexusAI procesando: "' + q.substr(0, 40) + (q.length > 40 ? '…' : '') + '"');
+
+  try {
+    console.log('[NexusAI] Enviando consulta a OpenAI:', { model: AI_CONFIG.model, question: q });
+
+    const response = await fetch(AI_CONFIG.endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`
+      },
+      body: JSON.stringify({
+        model: AI_CONFIG.model,
+        max_tokens: 600,
+        messages: [
+          { role: 'system', content: AI_CONFIG.systemPrompt },
+          { role: 'user', content: q }
+        ]
+      })
+    });
+
+    if (!response.ok) {
+      const errData = await response.json().catch(() => ({}));
+      const errMsg = errData?.error?.message || `HTTP ${response.status}`;
+      console.error('[NexusAI Error] Respuesta no OK de OpenAI:', response.status, errMsg);
+      throw new Error(errMsg);
+    }
+
+    const data = await response.json();
+    console.log('[NexusAI] Respuesta recibida:', data);
+
+    const answer = data?.choices?.[0]?.message?.content;
+    if (!answer) {
+      console.error('[NexusAI Error] La respuesta no contiene texto. Estructura inesperada:', data);
+      throw new Error('Respuesta vacía de OpenAI');
+    }
+
+    // Mostrar respuesta en modal
+    input.value = '';
+    document.getElementById('modal-body').innerHTML = `
+      <div class="modal-title">🤖 NexusAI — Respuesta</div>
+      <div class="modal-sub" style="color:var(--gold-dark);font-weight:600">"${q}"</div>
+      <div style="background:var(--gray-50);border-radius:12px;padding:1.5rem;border:1px solid var(--gray-200);line-height:1.7;font-size:0.95rem;color:var(--gray-800);white-space:pre-wrap;margin-bottom:1.5rem">${answer}</div>
+      <div style="font-size:0.72rem;color:var(--gray-400)">Generado por ${AI_CONFIG.model} · AutoNexus NexusAI™</div>
+    `;
+    document.getElementById('modal-overlay').classList.add('open');
+
+  } catch (err) {
+    console.error('[NexusAI Error] Falló la llamada a OpenAI:', err.message, err);
+    notify('❌ NexusAI error: ' + err.message.substr(0, 60));
+  } finally {
+    btn.textContent = origBtnText;
+    btn.disabled = false;
+    input.disabled = false;
+  }
+}
+
+// ============================================================
+// --- COCKPIT FILTER FUNCTIONS ---
+// ============================================================
+const cockpitState = {
+  marca: '', precio: 150000, banco: '',
+  cuota: 2000, score: 0, cilindros: '', anio: ''
+};
+
+function cockpitChange(key, el) {
+  cockpitState[key] = el.value;
+  const label = el.options[el.selectedIndex]?.text || el.value;
+  const valEl = document.getElementById('cv-' + key);
+  if (valEl) valEl.textContent = el.value ? label : '—';
+  const card = document.getElementById('cf-' + key);
+  if (card) card.classList.toggle('active', !!el.value);
+  renderActiveChips();
+}
+
+function cockpitRange(key, val) {
+  cockpitState[key] = parseInt(val);
+  const valEl = document.getElementById('cv-' + key);
+  if (key === 'precio') {
+    valEl.textContent = parseInt(val) >= 150000 ? 'Sin límite' : '$' + parseInt(val).toLocaleString();
+    document.getElementById('cf-precio').classList.toggle('active', parseInt(val) < 150000);
+  }
+  if (key === 'cuota') {
+    valEl.textContent = parseInt(val) >= 2000 ? 'Sin límite' : '$' + parseInt(val).toLocaleString() + '/mes';
+    document.getElementById('cf-cuota').classList.toggle('active', parseInt(val) < 2000);
+  }
+  if (key === 'score') {
+    valEl.textContent = parseInt(val) === 0 ? 'Cualquier score' : 'Mínimo ' + val + '/100';
+    document.getElementById('cf-score').classList.toggle('active', parseInt(val) > 0);
+  }
+  renderActiveChips();
+}
+
+function renderActiveChips() {
+  const container = document.getElementById('active-filters');
+  const chips = [];
+  if (cockpitState.marca) chips.push({ key: 'marca', label: '🏎 ' + cockpitState.marca });
+  if (cockpitState.precio < 150000) chips.push({ key: 'precio', label: '💰 Hasta $' + cockpitState.precio.toLocaleString() });
+  if (cockpitState.banco) chips.push({ key: 'banco', label: '🏦 ' + cockpitState.banco });
+  if (cockpitState.cuota < 2000) chips.push({ key: 'cuota', label: '📅 Cuota $' + cockpitState.cuota + '/mes' });
+  if (cockpitState.score > 0) chips.push({ key: 'score', label: '⭐ Score ' + cockpitState.score + '+' });
+  if (cockpitState.cilindros) chips.push({ key: 'cilindros', label: '⚙️ ' + document.getElementById('f-cilindros').options[document.getElementById('f-cilindros').selectedIndex]?.text });
+  if (cockpitState.anio) chips.push({ key: 'anio', label: '📆 Desde ' + cockpitState.anio });
+
+  container.innerHTML = chips.map(c =>
+    `<div class="af-chip">${c.label} <button onclick="clearChip('${c.key}')">✕</button></div>`
+  ).join('');
+}
+
+function clearChip(key) {
+  cockpitState[key] = key === 'precio' ? 150000 : key === 'cuota' ? 2000 : key === 'score' ? 0 : '';
+  const card = document.getElementById('cf-' + key);
+  if (card) card.classList.remove('active');
+  const valEl = document.getElementById('cv-' + key);
+  if (valEl) valEl.textContent = '—';
+  // Reset controls
+  const sel = document.getElementById('f-' + key);
+  if (sel && sel.tagName === 'SELECT') sel.value = '';
+  const range = document.getElementById('f-' + key + '-range');
+  if (range) {
+    if (key === 'precio') { range.value = 150000; cockpitRange('precio', 150000); }
+    if (key === 'cuota') { range.value = 2000; cockpitRange('cuota', 2000); }
+    if (key === 'score') { range.value = 0; cockpitRange('score', 0); }
+  }
+  renderActiveChips();
+}
+
+function resetCockpit() {
+  ['marca','banco','cilindros','anio'].forEach(k => {
+    cockpitState[k] = '';
+    const el = document.getElementById('f-' + k);
+    if (el) el.value = '';
+    const cv = document.getElementById('cv-' + k);
+    if (cv) cv.textContent = '—';
+    const card = document.getElementById('cf-' + k);
+    if (card) card.classList.remove('active');
+  });
+  cockpitState.precio = 150000; cockpitState.cuota = 2000; cockpitState.score = 0;
+  ['precio','cuota','score'].forEach(k => {
+    const r = document.getElementById('f-' + k + '-range');
+    if (r) r.value = k === 'precio' ? 150000 : k === 'cuota' ? 2000 : 0;
+  });
+  cockpitRange('precio', 150000); cockpitRange('cuota', 2000); cockpitRange('score', 0);
+  filteredCars = [...cars];
+  renderCars();
+  renderActiveChips();
+  notify('↺ Filtros limpiados');
+}
+
+function runCockpitSearch() {
+  filteredCars = cars.filter(c => {
+    if (cockpitState.marca && c.make !== cockpitState.marca) return false;
+    if (cockpitState.precio < 150000 && c.price > cockpitState.precio) return false;
+    if (cockpitState.cuota < 2000 && c.monthly > cockpitState.cuota) return false;
+    if (cockpitState.score > 0 && c.nexus < cockpitState.score) return false;
+    if (cockpitState.anio && c.year < parseInt(cockpitState.anio)) return false;
+    return true;
+  });
+  renderCars();
+  scrollToSection('catalogo');
+  notify('🔍 ' + filteredCars.length + ' autos encontrados con tus filtros');
+}
+
+// --- INIT ---
+renderCars();
+renderBanks();
+</script>
+</body>
+</html>
