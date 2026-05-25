@@ -1048,10 +1048,15 @@
     overflow: hidden; padding-top: 70px;
   }
 
-  .vhero-video {
-    position: absolute; inset: 0; width: 100%; height: 100%;
-    object-fit: cover; z-index: 0;
-  }
+.vhero-video {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  display: block;
+  min-width: 100%; min-height: 100%;
+}
 
   .vhero-overlay {
     position: absolute; inset: 0; z-index: 1;
