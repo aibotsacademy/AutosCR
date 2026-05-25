@@ -1342,10 +1342,19 @@
 
 <section class="vhero">
   <!-- Video Background -->
-  <video class="vhero-video" autoplay muted loop playsinline poster="">
-    <source src="https://emptylegs.aeroaiops.com/file.mp4" type="video/mp4">
-    <!-- Fallback gradient if video blocked -->
-  </video>
+ 
+  <video class="vhero-video" autoplay muted loop playsinline poster=""
+  id="hero-video"
+  oncanplay="console.log('[HeroVideo] ✅ Video listo para reproducir:', this.src)"
+  onplaying="console.log('[HeroVideo] ▶️ Video reproduciéndose correctamente')"
+  onerror="console.error('[HeroVideo] ❌ Error al cargar el video. Código:', this.error?.code, '| Mensaje:', this.error?.message, '| URL:', this.currentSrc)">
+  <source
+    src="https://emptylegs.aeroaiops.com/file.mp4"
+    type="video/mp4"
+    onerror="console.error('[HeroVideo] ❌ Error en <source>. URL bloqueada o inaccesible:', this.src)">
+</video>
+  
+
   <!-- Fallback background if video can't load -->
   <div style="position:absolute;inset:0;z-index:0;background:linear-gradient(135deg,#050e1f 0%,#0a1628 40%,#0d2147 100%)"></div>
 
