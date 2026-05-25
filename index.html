@@ -1353,6 +1353,40 @@
     type="video/mp4"
     onerror="console.error('[HeroVideo] ❌ Error en <source>. URL bloqueada o inaccesible:', this.src)">
 </video>
+
+  <script>
+  (function() {
+    const vid = document.getElementById('hero-video');
+    if (!vid) return;
+
+    vid.addEventListener('loadstart',  () => console.log('[HeroVideo] 🔄 Iniciando carga del video…'));
+    vid.addEventListener('stalled',    () => console.warn('[HeroVideo] ⚠️ Carga detenida (stalled) — posible bloqueo de red o CORS'));
+    vid.addEventListener('suspend',    () => console.warn('[HeroVideo] ⏸ Carga suspendida por el navegador'));
+    vid.addEventListener('abort',      () => console.error('[HeroVideo] 🛑 Carga abortada por el navegador'));
+    vid.addEventListener('emptied',    () => console.warn('[HeroVideo] 🗑 Video vaciado (emptied)'));
+
+    vid.addEventListener('error', (e) => {
+      const err = vid.error;
+      const codeMap = { 1:'ABORTED', 2:'NETWORK_ERROR', 3:'DECODE_ERROR', 4:'SRC_NOT_SUPPORTED' };
+      console.error('[HeroVideo] ❌ Error de video detectado:');
+      console.error('  → Código:', err?.code, '-', codeMap[err?.code] || 'DESCONOCIDO');
+      console.error('  → Mensaje:', err?.message || 'Sin mensaje');
+      console.error('  → URL intentada:', vid.currentSrc || vid.src);
+      console.error('  → Network state:', vid.networkState, '(0=EMPTY 1=IDLE 2=LOADING 3=NO_SOURCE)');
+      console.error('  → Ready state:', vid.readyState, '(0=HAVE_NOTHING … 4=HAVE_ENOUGH_DATA)');
+      console.error('  → Posible causa: CORS, URL expirada, formato no soportado, o red bloqueada');
+    });
+
+    // Diagnóstico adicional a los 3 segundos si el video no arrancó
+    setTimeout(() => {
+      if (vid.paused && vid.readyState < 3) {
+        console.warn('[HeroVideo] ⚠️ Diagnóstico a 3s: el video sigue pausado o sin datos suficientes');
+        console.warn('  → readyState:', vid.readyState, '| networkState:', vid.networkState);
+        console.warn('  → Intenta reemplazar la URL del <source> por un video local o de otro CDN');
+      }
+    }, 3000);
+  })();
+</script>
   
 
   <!-- Fallback background if video can't load -->
